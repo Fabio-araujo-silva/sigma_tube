@@ -440,8 +440,8 @@ void EncontrarMaisDistante(Aluno *p, int n_usp, Aluno **mais_distante, float *me
     }
 
     // Percorrer subárvore esquerda e direita
-    EncontrarMaisProximo(p->esq, X, mais_distante, melhor_metrica);
-    EncontrarMaisProximo(p->dir, X, mais_distante, melhor_metrica);
+    EncontrarMaisDistante(p->esq, X, mais_distante, melhor_metrica);
+    EncontrarMaisDistante(p->dir, X, mais_distante, melhor_metrica);
 }
 
 // Função principal de recomendação de mais distante
