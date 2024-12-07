@@ -31,7 +31,7 @@ typedef struct aluno {
 
 typedef struct avlAluno {
     Aluno *raiz;
-} AbbAluno;
+} AvlAluno;
 
 // Funções de manipulação de estruturas
 
