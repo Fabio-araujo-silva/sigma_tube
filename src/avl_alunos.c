@@ -1,4 +1,4 @@
-#include "./include/avl_alunos.h"
+#include ".\include\avl_alunos.h"
 
 static int usp_counter = 1;
 
@@ -83,8 +83,8 @@ int altura(Aluno *p) {
     if(p == NULL)
         return 0;
     else {
-        alt_esq = 1 + altura(p->esq);
-        alt_dir = 1 + altura(p->dir);
+        int alt_esq = 1 + altura(p->esq);
+        int alt_dir = 1 + altura(p->dir);
         return (alt_esq > alt_dir? alt_esq : alt_dir);
     }
 }
@@ -106,7 +106,7 @@ int aux_inserir_aluno(Aluno **raiz, char *nome, int *cresceu) {
 
         // Inicializa preferencia com zero
         for (int i = 0; i < MAX_CATEGORIAS; i++) {
-            novo->preferencia[i] = 0;
+            novo->categorias[i] = 0;
         }
 
         novo->fb = 0;
@@ -174,7 +174,7 @@ Aluno* buscaAluno(Aluno *p, int n_usp) {
         return NULL; // Não encontrou
     } else if (p->n_usp == n_usp) {
         return p;    // Encontrou o aluno
-    } else if (usp < p->n_usp) {
+    } else if (n_usp < p->n_usp) {
         return buscaAluno(p->esq, n_usp); // Se usp for menor, busca na subárvore esquerda
     } else {
         return buscaAluno(p->dir, n_usp); // Se usp for maior, busca na subárvore direita
@@ -191,7 +191,7 @@ int listarAlunos(Aluno *p) {
     return 1;
 }
 
-float Diferenca(Aluno aluno1, Aluno aluno2) {
+float Diferenca(Aluno *aluno1, Aluno *aluno2) {
     double normaAluno1 = 0, normaAluno2 = 0, somaDiferencas = 0;
 
     for (int i = 0; i < MAX_CATEGORIAS; i++) {
@@ -208,3 +208,4 @@ float Diferenca(Aluno aluno1, Aluno aluno2) {
 
     return (1 / (2 * normaAluno1 * normaAluno2 * somaDiferencas));
 }
+
