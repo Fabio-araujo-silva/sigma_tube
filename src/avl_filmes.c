@@ -1,9 +1,8 @@
 //#include ".\include\avl_filmes.h"
 #include "../include/avl_filmes.h"
 
-
 // Função auxiliar para rotação DD
-void DD (NoFilmeAvl **raiz)
+void DD_f (NoFilmeAvl **raiz)
 {
     NoFilmeAvl *pai = *raiz;
     NoFilmeAvl *filho = pai->dir;
@@ -16,7 +15,7 @@ void DD (NoFilmeAvl **raiz)
 }
 
 // Função auxiliar para rotação EE
-void EE (NoFilmeAvl **raiz)
+void EE_f (NoFilmeAvl **raiz)
 {
     NoFilmeAvl *pai = *raiz;
     NoFilmeAvl *filho = pai->esq;
@@ -29,7 +28,7 @@ void EE (NoFilmeAvl **raiz)
 }
 
 // Função auxiliar para rotação DE
-void DE (NoFilmeAvl **raiz)
+void DE_f (NoFilmeAvl **raiz)
 {
     NoFilmeAvl *pai = *raiz;
     NoFilmeAvl *filho = pai->dir;
@@ -60,7 +59,7 @@ void DE (NoFilmeAvl **raiz)
 }
 
 // Função auxiliar para rotação ED
-void ED (NoFilmeAvl **raiz)
+void ED_f (NoFilmeAvl **raiz)
 {
     NoFilmeAvl *pai = *raiz;
     NoFilmeAvl *filho = pai->esq;
@@ -131,7 +130,8 @@ int aux_inserir_filme(NoFilmeAvl **raiz, char *titulo, int categoria, int *cresc
                     break;
                 case -1:
                     *cresceu = 0;
-                    return rotacaoDireita(raiz);
+                    //AJUSTAR
+                    return DD_f(raiz);
                 }
             }
         }
@@ -153,7 +153,7 @@ int aux_inserir_filme(NoFilmeAvl **raiz, char *titulo, int categoria, int *cresc
                     break;
                 case 1:
                     *cresceu = 0;
-                    return rotacaoEsquerda(raiz);
+                    return EE_f(raiz);
                 }
             }
         }

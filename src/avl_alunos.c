@@ -1,12 +1,15 @@
 //#include ".\include\avl_alunos.h"
 #include "../include/avl_alunos.h"
 
+void EncontrarMaisProximo_aux(Aluno *p, Aluno *X, Aluno **mais_proximo, float *melhor_metrica);
+void EncontrarMaisDistante_aux(Aluno *p, Aluno *X, Aluno **mais_distante, float *melhor_metrica);
+
 static int usp_counter = 1;
 
 // funcoes do tad
 int altura(Aluno *p);
 
-void DD(Aluno **r)
+void DD_a (Aluno **r)
 {
     Aluno *pai = *r;
     Aluno *filho = pai->dir;
@@ -18,7 +21,7 @@ void DD(Aluno **r)
     *r = filho;
 }
 
-void EE(Aluno **r)
+void EE_a (Aluno **r)
 {
     Aluno *pai = *r;
     Aluno *filho = pai->esq;
@@ -30,7 +33,7 @@ void EE(Aluno **r)
     *r = filho;
 }
 
-void ED(Aluno **r)
+void ED_a (Aluno **r)
 {
     Aluno *pai = *r;
     Aluno *filho = pai->esq;
@@ -62,7 +65,7 @@ void ED(Aluno **r)
     *r = neto;
 }
 
-void DE(Aluno **r)
+void DE_a (Aluno **r)
 {
     Aluno *pai = *r;
     Aluno *filho = pai->dir;
@@ -106,8 +109,8 @@ int altura(Aluno *p)
     }
 }
 
-// Função auxiliar para encontrar o predecessor (maior nó da subárvore esquerda)
-Aluno* predecessor(Aluno *u) {
+// Função auxiliar para encontrar o prED_aecessor (maior nó da subárvore esquerda)
+Aluno* prED_aecessor(Aluno *u) {
     u = u->esq;
     while (u->dir != NULL) {
         u = u->dir;
@@ -132,11 +135,11 @@ int removerAluno(Aluno **p, int usp, int *mudou_h) {
                     case 2:
                         // subárvore direita mais alta
                         if ((*p)->dir->fb >= 0) {
-                            DD(p); 
-                            // Após DD, se o fb do novo nó for 1, altura não muda
+                            DD_a(p); 
+                            // Após DD_a, se o fb do novo nó for 1, altura não muda
                             if ((*p)->fb == 1) *mudou_h = 0;
                         } else {
-                            DE(p); 
+                            DE_a(p); 
                             // Após DE, a árvore pode ou não manter a altura
                             // Ajustes finos podem ser necessários dependendo da implementação
                         }
@@ -151,7 +154,7 @@ int removerAluno(Aluno **p, int usp, int *mudou_h) {
                         break;
                 }
             }
-            return 1; // Remoção bem sucedida
+            return 1; // Remoção bem sucED_aida
         }
     } else if (usp > (*p)->n_usp) {
         // Remover na subárvore direita
@@ -162,10 +165,10 @@ int removerAluno(Aluno **p, int usp, int *mudou_h) {
                 switch ((*p)->fb) {
                     case -2:
                         if ((*p)->esq->fb <= 0) {
-                            EE(p);
+                            EE_a(p);
                             if ((*p)->fb == -1) *mudou_h = 0;
                         } else {
-                            ED(p);
+                            ED_a(p);
                             // Ajustes finos podem ser necessários dependendo da implementação
                         }
                         break;
@@ -191,21 +194,21 @@ int removerAluno(Aluno **p, int usp, int *mudou_h) {
             return 1;
         } else if ((*p)->esq != NULL && (*p)->dir != NULL) {
             // Nó com duas subárvores
-            Aluno *q = predecessor(*p);
+            Aluno *q = prED_aecessor(*p);
             (*p)->n_usp = q->n_usp;
             strcpy((*p)->nome, q->nome);
             // Copie outros campos se necessário (preferencias, etc)
-            // Removemos agora o nó predecessor da subárvore esquerda
+            // Removemos agora o nó prED_aecessor da subárvore esquerda
             if (removerAluno(&((*p)->esq), q->n_usp, mudou_h)) {
                 if (*mudou_h) {
                     (*p)->fb = (*p)->fb + 1;
                     switch ((*p)->fb) {
                         case 2:
                             if ((*p)->dir->fb >= 0) {
-                                DD(p);
+                                DD_a(p);
                                 if ((*p)->fb == 1) *mudou_h = 0;
                             } else {
-                                DE(p);
+                                DE_a(p);
                             }
                             break;
                         case 1:
@@ -301,9 +304,9 @@ int aux_inserir_aluno(Aluno **raiz, char *nome, int *cresceu)
                 break;
             case 1:
                 if ((*raiz)->dir->fb == 1)
-                    DD(raiz); // Rotação à direita
+                    DD_a(raiz); // Rotação à direita
                 else
-                    DE(raiz); // Rotação direita-esquerda
+                    DE_a(raiz); // Rotação direita-esquerda
                 *cresceu = 0;
                 break;
             }
@@ -323,9 +326,9 @@ int aux_inserir_aluno(Aluno **raiz, char *nome, int *cresceu)
             {
             case -1:
                 if ((*raiz)->esq->fb == -1)
-                    EE(raiz); // Rotação à esquerda
+                    EE_a(raiz); // Rotação à esquerda
                 else
-                    ED(raiz); // Rotação esquerda-direita
+                    ED_a(raiz); // Rotação esquerda-direita
                 *cresceu = 0;
                 break;
             case 0:
@@ -374,7 +377,7 @@ int listarAlunos(Aluno *p)
     return 1;
 }
 
-// Metrica para medir a "distância" do gosto de um aluno para outro
+// Metrica para mED_air a "distância" do gosto de um aluno para outro
 float Metrica(Aluno *X, Aluno *Y)
 {
     int i;
