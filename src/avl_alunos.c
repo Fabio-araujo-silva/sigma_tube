@@ -2,6 +2,9 @@
 
 static int usp_counter = 1;
 
+//funcoes do tad
+int altura(Aluno *p);
+
 void DD(Aluno **r) {
     Aluno *pai = *r;
     Aluno *filho = pai->dir;
@@ -95,8 +98,8 @@ int aux_inserir_aluno(Aluno **raiz, char *nome, int *cresceu) {
     if (*raiz == NULL) {
         Aluno *novo = (Aluno*) malloc(sizeof(Aluno));
         if (novo == NULL) return 1; // Erro de alocação
-
-        novo->n_usp = usp_counter++; // autoincrementa o n_usp
+        usp_counter ++;
+        novo->n_usp = usp_counter; // autoincrementa o n_usp
         strcpy(novo->nome, nome);
         novo->iniAssistidos = NULL;
         novo->iniFav = NULL;
