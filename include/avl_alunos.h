@@ -1,5 +1,12 @@
 #include "sigma_tube.h"
 
+// No para registro dos filmes em lista circular que será atributo de cada usuário
+typedef struct noFilmeLinear
+{
+    char titulo[MAX_TITULO];
+    struct no_filme_Linear *prox;
+} NoFilmeLinear;
+
 typedef struct aluno
 {
     int n_usp;
@@ -15,13 +22,6 @@ typedef struct avlAluno
 {
     Aluno *raiz;
 } AvlAluno;
-
-// No para registro dos filmes em lista circular que será atributo de cada usuário
-typedef struct noFilmeLinear
-{
-    char titulo[MAX_TITULO];
-    struct no_filme_Linear *prox;
-} NoFilmeLinear;
 
 int aux_inserir_aluno(Aluno **raiz, char *nome, int *cresceu);
 int cadastraAluno(AvlAluno *arvore, char *nome); // Cadastra um aluno no sistema
