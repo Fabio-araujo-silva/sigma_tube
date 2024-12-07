@@ -7,7 +7,7 @@ typedef struct noFilmeAVL
     int categoria;
     int *espectadores;
     int fb;
-    struct noFilmeAbb *esq, *dir;
+    struct noFilmeAvl *esq, *dir;
 } NoFilmeAvl;
 
 typedef struct avlFilme
