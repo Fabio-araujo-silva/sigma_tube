@@ -1,4 +1,3 @@
-
 #include "sigma_tube.h"
 
 typedef struct aluno
@@ -28,6 +27,8 @@ int aux_inserir_aluno(Aluno **raiz, char *nome, int *cresceu);
 int cadastraAluno(AvlAluno *arvore, char *nome); // Cadastra um aluno no sistema
 Aluno *buscaAluno(Aluno *p, int usp);            // Busca um aluno no sistema a partir do seu nome
 int altura(Aluno *p);
+Aluno* predecessor(Aluno *u);
+int removerAluno(Aluno **p, int usp, int *mudou_h);
 int listarAlunos(Aluno *p); // Lista todos os alunos cadastrados no sistema
 float Diferenca(Aluno aluno1, Aluno aluno2);
 Aluno preferenciaConvergente(); // Aponta o aluno cujas preferências são mais compatíveis

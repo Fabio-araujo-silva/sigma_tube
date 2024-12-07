@@ -105,6 +105,148 @@ int altura(Aluno *p)
     }
 }
 
+// Função auxiliar para encontrar o predecessor (maior nó da subárvore esquerda)
+Aluno* predecessor(Aluno *u) {
+    u = u->esq;
+    while (u->dir != NULL) {
+        u = u->dir;
+    }
+    return u;
+}
+
+// Função de remoção AVL
+int removerAluno(Aluno **p, int usp, int *mudou_h) {
+    if (*p == NULL) {
+        return 0; // não encontrou o aluno
+    }
+
+    if (usp < (*p)->n_usp) {
+        // Remover na subárvore esquerda
+        if (removerAluno(&((*p)->esq), usp, mudou_h)) {
+            // Remoção ocorreu à esquerda
+            if (*mudou_h) {
+                // Ajusta o fb pois a subárvore esquerda diminuiu de altura
+                (*p)->fb = (*p)->fb + 1; 
+                switch ((*p)->fb) {
+                    case 2:
+                        // subárvore direita mais alta
+                        if ((*p)->dir->fb >= 0) {
+                            DD(p); 
+                            // Após DD, se o fb do novo nó for 1, altura não muda
+                            if ((*p)->fb == 1) *mudou_h = 0;
+                        } else {
+                            DE(p); 
+                            // Após DE, a árvore pode ou não manter a altura
+                            // Ajustes finos podem ser necessários dependendo da implementação
+                        }
+                        break;
+                    case 1:
+                        // Não mudou a altura total dessa subárvore
+                        *mudou_h = 0;
+                        break;
+                    case 0:
+                        // A altura dessa subárvore diminuiu
+                        // *mudou_h = 1; já é verdadeiro
+                        break;
+                }
+            }
+            return 1; // Remoção bem sucedida
+        }
+    } else if (usp > (*p)->n_usp) {
+        // Remover na subárvore direita
+        if (removerAluno(&((*p)->dir), usp, mudou_h)) {
+            if (*mudou_h) {
+                // subárvore direita diminuiu de altura
+                (*p)->fb = (*p)->fb - 1;
+                switch ((*p)->fb) {
+                    case -2:
+                        if ((*p)->esq->fb <= 0) {
+                            EE(p);
+                            if ((*p)->fb == -1) *mudou_h = 0;
+                        } else {
+                            ED(p);
+                            // Ajustes finos podem ser necessários dependendo da implementação
+                        }
+                        break;
+                    case -1:
+                        // Não mudou a altura total
+                        *mudou_h = 0;
+                        break;
+                    case 0:
+                        // Altura diminuiu
+                        // *mudou_h = 1; já verdadeiro
+                        break;
+                }
+            }
+            return 1; 
+        }
+    } else {
+        // usp == (*p)->n_usp, encontrou o nó a remover
+        if ((*p)->esq == NULL && (*p)->dir == NULL) {
+            // Nó folha
+            free(*p);
+            *p = NULL;
+            *mudou_h = 1; // altura mudou
+            return 1;
+        } else if ((*p)->esq != NULL && (*p)->dir != NULL) {
+            // Nó com duas subárvores
+            Aluno *q = predecessor(*p);
+            (*p)->n_usp = q->n_usp;
+            strcpy((*p)->nome, q->nome);
+            // Copie outros campos se necessário (preferencias, etc)
+            // Removemos agora o nó predecessor da subárvore esquerda
+            if (removerAluno(&((*p)->esq), q->n_usp, mudou_h)) {
+                if (*mudou_h) {
+                    (*p)->fb = (*p)->fb + 1;
+                    switch ((*p)->fb) {
+                        case 2:
+                            if ((*p)->dir->fb >= 0) {
+                                DD(p);
+                                if ((*p)->fb == 1) *mudou_h = 0;
+                            } else {
+                                DE(p);
+                            }
+                            break;
+                        case 1:
+                            *mudou_h = 0;
+                            break;
+                        case 0:
+                            // altura diminuiu
+                            break;
+                    }
+                }
+                return 1;
+            }
+        } else {
+            // Nó com apenas uma subárvore
+            Aluno *aux;
+            if ((*p)->esq != NULL) {
+                aux = (*p)->esq;
+                (*p)->n_usp = aux->n_usp;
+                strcpy((*p)->nome, aux->nome);
+                // Copie outros campos se necessário
+                (*p)->esq = aux->esq;
+                (*p)->dir = aux->dir;
+                (*p)->fb = aux->fb;
+                free(aux);
+            } else {
+                aux = (*p)->dir;
+                (*p)->n_usp = aux->n_usp;
+                strcpy((*p)->nome, aux->nome);
+                // Copie outros campos se necessário
+                (*p)->esq = aux->esq;
+                (*p)->dir = aux->dir;
+                (*p)->fb = aux->fb;
+                free(aux);
+            }
+            *mudou_h = 1; // remoção alterou a altura
+            return 1;
+        }
+    }
+
+    return 0; // caso não encontrado ou não removido
+}
+
 int cadastraAluno(AvlAluno *arvore, char *nome)
 {
     int cresceu = 0;
