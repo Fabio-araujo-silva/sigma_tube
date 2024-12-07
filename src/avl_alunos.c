@@ -1,4 +1,5 @@
-#include ".\include\avl_alunos.h"
+//#include ".\include\avl_alunos.h"
+#include "./include/avl_alunos.h"
 
 static int usp_counter = 1;
 
