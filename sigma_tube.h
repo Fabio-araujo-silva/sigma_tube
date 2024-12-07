@@ -4,6 +4,7 @@
 
 #define MAX_NOME 40
 #define MAX_TITULO 40
+#define MAX_CATEGORIAS 6
 
 // No para registro "global" de filmes em árvore de busca binária
 typedef struct noFilmeAVL {
@@ -24,7 +25,7 @@ typedef struct aluno {
     char nome[MAX_NOME];
     NoFilmeLinear *iniAssistidos;
     NoFilmeLinear *iniFav;
-    int preferencia[6];
+    int preferencia[MAX_CATEGORIAS];
     struct aluno *esq, *dir;
 } Aluno;
 
