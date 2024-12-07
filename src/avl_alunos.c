@@ -401,7 +401,7 @@ void EncontrarMaisProximo(Aluno *p, int n_usp, Aluno **mais_proximo, float *melh
 
     // Calcular a métrica para o aluno atual, se for diferente de X
     if (p != X) { // Comparação por endereço para evitar o próprio aluno
-        float metrica_atual = Metrica(X, &p);
+        float metrica_atual = Metrica(X, p);
         if (metrica_atual > *melhor_metrica) {
             *melhor_metrica = metrica_atual;
             *mais_proximo = p;
