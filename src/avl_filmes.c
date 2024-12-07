@@ -1,5 +1,5 @@
 //#include ".\include\avl_filmes.h"
-#include "./include/avl_filmes.h"
+#include "../include/avl_filmes.h"
 
 
 // Função auxiliar para rotação DD
