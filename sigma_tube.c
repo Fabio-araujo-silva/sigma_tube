@@ -18,7 +18,7 @@ int buscaFilme(); // Busca filme a partir de seu nome e verifica se foi assistid
 Diferenca(Aluno aluno1, Aluno aluno2) {
     double normaAluno1 = 0, normaAluno2 = 0, somaDiferencas = 0;
 
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < MAX_CATEGORIAS; i++) {
         normaAluno1 += pow(aluno1->categorias[i], 2);
         normaAluno2 += pow(aluno2->categorias[i], 2);
     }
@@ -26,7 +26,7 @@ Diferenca(Aluno aluno1, Aluno aluno2) {
     normaAluno1 = sqrt(normaAluno1);
     normaAluno2 = sqrt(normaAluno2);
 
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < MAX_CATEGORIAS; i++) {
         somaDiferencas += pow(aluno1->categorias[i] * normaAluno2 - aluno2->categorias[i] * normaAluno1, 2);
     }
 
