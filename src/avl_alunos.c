@@ -408,7 +408,7 @@ void EncontrarMaisProximo(Aluno *p, int n_usp, Aluno **mais_proximo, float *melh
         }
     }
 
-    void EncontrarMaisProximo_aux(p, X, mais_proximo, melhor_metrica);   
+    EncontrarMaisProximo_aux(p, X, mais_proximo, melhor_metrica);   
 } 
 
 void EncontrarMaisProximo_aux(Aluno *p, Aluno *X, Aluno **mais_proximo, float *melhor_metrica) {
@@ -444,7 +444,7 @@ void EncontrarMaisDistante(Aluno *p, int n_usp, Aluno **mais_distante, float *me
         }
     }
 
-    void EncontrarMaisDistante_aux(p, X, mais_distante, melhor_metrica);
+    EncontrarMaisDistante_aux(p, X, mais_distante, melhor_metrica);
 
 }
 
