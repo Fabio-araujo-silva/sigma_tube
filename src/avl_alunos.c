@@ -110,7 +110,7 @@ int altura(Aluno *p)
 }
 
 // Função auxiliar para encontrar o prED_aecessor (maior nó da subárvore esquerda)
-Aluno* prED_aecessor(Aluno *u) {
+Aluno* predecessor(Aluno *u) {
     u = u->esq;
     while (u->dir != NULL) {
         u = u->dir;
@@ -194,7 +194,7 @@ int removerAluno(Aluno **p, int usp, int *mudou_h) {
             return 1;
         } else if ((*p)->esq != NULL && (*p)->dir != NULL) {
             // Nó com duas subárvores
-            Aluno *q = prED_aecessor(*p);
+            Aluno *q = predecessor(*p);
             (*p)->n_usp = q->n_usp;
             strcpy((*p)->nome, q->nome);
             // Copie outros campos se necessário (preferencias, etc)

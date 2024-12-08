@@ -1,10 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-#include "include/avl_filmes.h"
-#include "include/sigma_tube.h"
-#include "include/avl_alunos.h"
+#include "../include/avl_filmes.h"
+#include "../include/sigma_tube.h"
+#include "../include/avl_alunos.h"
 
 int main()
 {

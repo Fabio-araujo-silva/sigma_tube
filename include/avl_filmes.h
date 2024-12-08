@@ -1,7 +1,7 @@
 #include "sigma_tube.h"
 
 // No para registro "global" de filmes em árvore de busca binária
-typedef struct noFilmeAVL
+typedef struct noFilmeAvl
 {
     char titulo[MAX_TITULO];
     int categoria;

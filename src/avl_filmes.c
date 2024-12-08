@@ -131,7 +131,7 @@ int aux_inserir_filme(NoFilmeAvl **raiz, char *titulo, int categoria, int *cresc
                 case -1:
                     *cresceu = 0;
                     //AJUSTAR
-                    return DD_f(raiz);
+                    DD_f(raiz);
                 }
             }
         }
@@ -153,7 +153,7 @@ int aux_inserir_filme(NoFilmeAvl **raiz, char *titulo, int categoria, int *cresc
                     break;
                 case 1:
                     *cresceu = 0;
-                    return EE_f(raiz);
+                    EE_f(raiz);
                 }
             }
         }
