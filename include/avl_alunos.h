@@ -31,9 +31,9 @@ Aluno* predecessor(Aluno *u);
 int removerAluno(Aluno **p, int usp, int *mudou_h);
 int listarAlunos(Aluno *p); // Lista todos os alunos cadastrados no sistema
 float Metrica(Aluno *X, Aluno *Y);
-void EncontrarMaisProximo(Aluno *p, int n_usp, Aluno **mais_proximo, float *melhor_metrica);
-Aluno *recomendaConvergente(Aluno *p, Aluno *X);
-void EncontrarMaisDistante(Aluno *p, int n_usp, Aluno **mais_distante, float *melhor_metrica);
-Aluno *recomendaDivergente(Aluno *p, Aluno *X);
+void EncontrarMaisProximo(Aluno *p, Aluno *X, Aluno **mais_proximo, float *melhor_metrica);
+Aluno *recomendaConvergente(Aluno *p, int n_usp);
+void EncontrarMaisDistante(Aluno *p, Aluno *X, Aluno **mais_distante, float *melhor_metrica);
+Aluno *recomendaDivergente(Aluno *p, int n_usp);
 int infosArvore();              // Exibe informações técnicas da ABB de alunos
 int retirarAluno();             // Apaga cadastro de um aluno
