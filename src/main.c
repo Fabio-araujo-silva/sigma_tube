@@ -7,7 +7,14 @@
 
 int main()
 {
+    int n_usp;
     int modo = 0;
+
+    AvlAluno *arvore_alunos = (AvlAluno *)malloc(sizeof(AvlAluno));
+    AvlFilme *arvore_filmes = (AvlFilme *)malloc(sizeof(AvlFilme));
+
+    Aluno *aluno;
+    Aluno *colega;
 
     printf("Bem-vindo ao SigmaTube!\n");
 
@@ -38,8 +45,6 @@ int main()
             printf("Insira o nome do aluno: ");
             char nome[MAX_NOME];
             scanf("%s", nome);
-
-            AvlAluno *arvore_alunos = (AvlAluno *)malloc(sizeof(AvlAluno));
             cadastraAluno(arvore_alunos, nome);
             break;
 
@@ -50,11 +55,10 @@ int main()
 
         // Buscar um aluno
         case 3:
-            printf("Insira o nome do aluno: ");
-            char nome_busca[MAX_NOME];
-            scanf("%s", nome_busca);
+            printf("Insira o número usp do aluno: ");
+            scanf("%d", n_usp);
 
-            Aluno *aluno = buscaAluno(arvore_alunos->raiz, nome_busca);
+            aluno = buscaAluno(arvore_alunos->raiz, n_usp);
 
             if (aluno != NULL)
             {
@@ -68,12 +72,10 @@ int main()
 
         // Remover um aluno
         case 4:
-            printf("Insira o nome do aluno a ser removido: ");
-            char nome_remocao[MAX_NOME];
-            scanf("%s", nome_remocao);
-
-            int usp_remocao = buscaAluno(arvore_alunos->raiz, nome_remocao)->n_usp;
-            // TO DO - Remover aluno
+            printf("Insira o número do aluno a ser removido: ");
+            int balanceamento;
+            scanf("%d", n_usp);
+            removerAluno(&arvore_alunos->raiz, n_usp, &balanceamento);
 
         // Listar filmes
         case 5:
@@ -101,13 +103,10 @@ int main()
 
         // Encontrar colega com gostos similares
         case 7:
-            printf("Insira o nome do aluno: ");
-            char nome_aluno[MAX_NOME];
-            scanf("%s", nome_aluno);
+            printf("Insira o número usp do aluno: ");
+            scanf("%d", n_usp);
 
-            Aluno *aluno = buscaAluno(arvore_alunos->raiz, nome_aluno);
-
-            Aluno *colega = recomendaConvergente(arvore_alunos->raiz, aluno);
+            Aluno *colega = recomendaConvergente(arvore_alunos->raiz, n_usp);
 
             printf("O colega com gosto similar é: %s\n", colega->nome);
             break;
@@ -115,12 +114,8 @@ int main()
         // Encontrar colega com gostos diferentes
         case 8:
             printf("Insira o nome do aluno: ");
-            char nome_aluno[MAX_NOME];
-            scanf("%s", nome_aluno);
-
-            Aluno *aluno = buscaAluno(arvore_alunos->raiz, nome_aluno);
-
-            Aluno *colega = recomendaDivergente(arvore_alunos->raiz, aluno);
+            scanf("%d", n_usp);
+            colega = recomendaDivergente(arvore_alunos->raiz, n_usp);
 
             printf("O colega com gosto mais divergente é: %s\n", colega->nome);
             break;
