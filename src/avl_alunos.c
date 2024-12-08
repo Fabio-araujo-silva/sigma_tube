@@ -377,7 +377,7 @@ int listarAlunos(Aluno *p)
     return 1;
 }
 
-// Metrica para mED_air a "distância" do gosto de um aluno para outro
+// Metrica para medir a "distância" do gosto de um aluno para outro
 float Metrica(Aluno *X, Aluno *Y)
 {
     int i;
@@ -395,12 +395,10 @@ float Metrica(Aluno *X, Aluno *Y)
         return (produto_interno / (norma_X * norma_Y));
 }
 
-void EncontrarMaisProximo(Aluno *p, int n_usp, Aluno **mais_proximo, float *melhor_metrica) {
+void EncontrarMaisProximo(Aluno *p, Aluno *X, Aluno **mais_proximo, float *melhor_metrica) {
     if (p == NULL) {
         return;
     }
-
-    Aluno *X = buscaAluno(p, n_usp);
 
     // Calcular a métrica para o aluno atual, se for diferente de X
     if (p != X) { // Comparação por endereço para evitar o próprio aluno
@@ -411,56 +409,48 @@ void EncontrarMaisProximo(Aluno *p, int n_usp, Aluno **mais_proximo, float *melh
         }
     }
 
-    EncontrarMaisProximo_aux(p, X, mais_proximo, melhor_metrica);   
-} 
-
-void EncontrarMaisProximo_aux(Aluno *p, Aluno *X, Aluno **mais_proximo, float *melhor_metrica) {
-
     // Percorrer subárvore esquerda e direita
     EncontrarMaisProximo(p->esq, X, mais_proximo, melhor_metrica);
     EncontrarMaisProximo(p->dir, X, mais_proximo, melhor_metrica);
 }
 
 // Função principal de recomendação de mais próximo
-Aluno *recomendaConvergente(Aluno *p, Aluno *X) {
+Aluno *recomendaConvergente(Aluno *p, int n_usp) {
     Aluno *mais_proximo = NULL;
     float melhor_metrica = 0;
+
+    Aluno *X = buscaAluno(p, n_usp);
 
     EncontrarMaisProximo(p, X, &mais_proximo, &melhor_metrica);
 
     return (mais_proximo);
 }
 
-void EncontrarMaisDistante(Aluno *p, int n_usp, Aluno **mais_distante, float *melhor_metrica) {
+void EncontrarMaisDistante(Aluno *p, Aluno *X, Aluno **mais_distante, float *melhor_metrica) {
     if (p == NULL) {
         return;
     }
 
-    Aluno *X = buscaAluno(p, n_usp);
-
     // Calcular a métrica para o aluno atual, se for diferente de X
     if (p != X) { // Comparação por endereço para evitar o próprio aluno
-        float metrica_atual = Metrica(X, &p);
+        float metrica_atual = Metrica(X, p);
         if (metrica_atual < *melhor_metrica) {
             *melhor_metrica = metrica_atual;
             *mais_distante = p;
         }
     }
 
-    EncontrarMaisDistante_aux(p, X, mais_distante, melhor_metrica);
-
-}
-
-void EncontrarMaisDistante_aux(Aluno *p, Aluno *X, Aluno **mais_distante, float *melhor_metrica) {
     // Percorrer subárvore esquerda e direita
-    EncontrarMaisDistante(p->esq, X, mais_distante, melhor_metrica);
-    EncontrarMaisDistante(p->dir, X, mais_distante, melhor_metrica);
+    EncontrarMaisProximo(p->esq, X, mais_distante, melhor_metrica);
+    EncontrarMaisProximo(p->dir, X, mais_distante, melhor_metrica);
 }
 
 // Função principal de recomendação de mais distante
-Aluno *recomendaDivergente(Aluno *p, Aluno *X) {
+Aluno *recomendaDivergente(Aluno *p, int n_usp) {
     Aluno *mais_distante = NULL;
     float melhor_metrica = 1;
+
+    Aluno *X = buscaAluno(p, n_usp);
 
     EncontrarMaisDistante(p, X, &mais_distante, &melhor_metrica);
 
