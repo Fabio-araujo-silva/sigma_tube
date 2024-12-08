@@ -271,6 +271,7 @@ int aux_inserir_aluno(Aluno **raiz, char *nome, int *cresceu)
         Aluno *novo = (Aluno *)malloc(sizeof(Aluno));
         if (novo == NULL)
             return 1; // Erro de alocação
+
         usp_counter++;
         novo->n_usp = usp_counter; // autoincrementa o n_usp
         strcpy(novo->nome, nome);
@@ -290,7 +291,9 @@ int aux_inserir_aluno(Aluno **raiz, char *nome, int *cresceu)
         *cresceu = 1;
         return 0; // Sucesso
     }
-    if (usp_counter > (*raiz)->n_usp)
+
+    // Comparação alfabética
+    if (strcmp(nome, (*raiz)->nome) > 0)
     {
         // Inserir à direita
         int ret = aux_inserir_aluno(&(*raiz)->dir, nome, cresceu);
@@ -302,10 +305,7 @@ int aux_inserir_aluno(Aluno **raiz, char *nome, int *cresceu)
             switch ((*raiz)->fb)
             {
             case -1:
-                if ((*raiz)->dir->fb == 1)
-                    EE_a(raiz); // Rotação à direita
-                else
-                    ED_a(raiz); // Rotação direita-esquerda
+                (*raiz)->fb = 0;
                 *cresceu = 0;
                 break;
             case 0:
@@ -325,7 +325,7 @@ int aux_inserir_aluno(Aluno **raiz, char *nome, int *cresceu)
     }
     else
     {
-        // Inserir à esquerda (caso por algum motivo o usp_counter fosse menor, o que não ocorrerá se usp_counter só aumenta)
+        // Inserir à esquerda
         int ret = aux_inserir_aluno(&(*raiz)->esq, nome, cresceu);
         if (ret != 0)
             return ret;
@@ -334,6 +334,14 @@ int aux_inserir_aluno(Aluno **raiz, char *nome, int *cresceu)
         {
             switch ((*raiz)->fb)
             {
+            case 1:
+                (*raiz)->fb = 0;
+                *cresceu = 0;
+                break;
+            case 0:
+                (*raiz)->fb = -1;
+                *cresceu = 1;
+                break;
             case -1:
                 if ((*raiz)->esq->fb == -1)
                     EE_a(raiz); // Rotação à esquerda
@@ -341,19 +349,12 @@ int aux_inserir_aluno(Aluno **raiz, char *nome, int *cresceu)
                     ED_a(raiz); // Rotação esquerda-direita
                 *cresceu = 0;
                 break;
-            case 0:
-                (*raiz)->fb = -1;
-                *cresceu = 1;
-                break;
-            case 1:
-                (*raiz)->fb = 0;
-                *cresceu = 0;
-                break;
             }
         }
         return ret;
     }
 }
+
 
 Aluno *buscaAluno(Aluno *p, int n_usp)
 {
