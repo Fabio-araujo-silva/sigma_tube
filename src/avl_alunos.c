@@ -302,7 +302,10 @@ int aux_inserir_aluno(Aluno **raiz, char *nome, int *cresceu)
             switch ((*raiz)->fb)
             {
             case -1:
-                (*raiz)->fb = 0;
+                if ((*raiz)->dir->fb == 1)
+                    EE_a(raiz); // Rotação à direita
+                else
+                    ED_a(raiz); // Rotação direita-esquerda
                 *cresceu = 0;
                 break;
             case 0:
