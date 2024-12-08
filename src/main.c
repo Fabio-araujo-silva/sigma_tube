@@ -55,7 +55,7 @@ int main()
 
         // Buscar um aluno
         case 3:
-            printf("Insira o número usp do aluno: ");
+            printf("Insira o numero usp do aluno: ");
             scanf("%d", n_usp);
 
             aluno = buscaAluno(arvore_alunos->raiz, n_usp);
@@ -66,7 +66,7 @@ int main()
             }
             else
             {
-                printf("Aluno não encontrado!\n");
+                printf("Aluno nao encontrado!\n");
             }
             break;
 
@@ -119,7 +119,7 @@ int main()
 
             printf("O colega com gosto mais divergente é: %s\n", colega->nome);
             break;
-
+/*
         case 9:
             top10doMomento();
             break;
@@ -131,8 +131,10 @@ int main()
         case 11:
             infosArvore();
             break;
-        
+        */
         case 12:
+            break;
+        default:
             break;
         }
         

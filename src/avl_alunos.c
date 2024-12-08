@@ -1,9 +1,6 @@
 //#include ".\include\avl_alunos.h"
 #include "../include/avl_alunos.h"
 
-void EncontrarMaisProximo_aux(Aluno *p, Aluno *X, Aluno **mais_proximo, float *melhor_metrica);
-void EncontrarMaisDistante_aux(Aluno *p, Aluno *X, Aluno **mais_distante, float *melhor_metrica);
-
 static int usp_counter = 1;
 
 // funcoes do tad

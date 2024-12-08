@@ -22,8 +22,8 @@ int cadastraFilme(AvlFilme *arvore, char *titulo, int categoria);               
 int listaFilme(NoFilmeAvl *p); // Lista todos os filmes cadastrados em ordem alfabética
 
 int buscaFilme(NoFilmeAvl *p, char *titulo, int *assistido); // Busca filme a partir de seu nome e verifica se foi assistido, retornando inteiro correspondente
-
+/*
 // adicionais
 int top10doMomento(); // Exibe os 10 filmes mais populares do momento
 int adicionaFilmeFavorito();
-int imprimeFilmesFavorito();
+int imprimeFilmesFavorito();*/
