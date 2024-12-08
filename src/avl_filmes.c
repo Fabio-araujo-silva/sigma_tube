@@ -1,7 +1,7 @@
 //#include ".\include\avl_filmes.h"
 #include "../include/avl_filmes.h"
 
-// Função auxiliar para rotação DD
+// Função para rotacionar à direita
 void DD_f (NoFilmeAvl **raiz)
 {
     NoFilmeAvl *pai = *raiz;
@@ -14,7 +14,7 @@ void DD_f (NoFilmeAvl **raiz)
     *raiz = filho;
 }
 
-// Função auxiliar para rotação EE
+// Função rotacionar à esquerda
 void EE_f (NoFilmeAvl **raiz)
 {
     NoFilmeAvl *pai = *raiz;
@@ -27,7 +27,7 @@ void EE_f (NoFilmeAvl **raiz)
     *raiz = filho;
 }
 
-// Função auxiliar para rotação DE
+// Função auxiliar para rotação à esquerda e depois à direita
 void DE_f (NoFilmeAvl **raiz)
 {
     NoFilmeAvl *pai = *raiz;
