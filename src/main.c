@@ -10,8 +10,8 @@ int main()
     int n_usp;
     int modo = 0;
 
-    AvlAluno *arvore_alunos = (AvlAluno *)malloc(sizeof(AvlAluno));
-    AvlFilme *arvore_filmes = (AvlFilme *)malloc(sizeof(AvlFilme));
+    AvlAluno *arvore_alunos = Criar_Arvore_Aluno();
+    AvlFilme *arvore_filmes = Criar_Arvore_Filme();
 
     Aluno *aluno;
     Aluno *colega;
@@ -44,7 +44,7 @@ int main()
         case 1:
             printf("Insira o nome do aluno: ");
             char nome[MAX_NOME];
-            scanf("%s", nome);
+            scanf(" %[^\n]s", nome);
             cadastraAluno(arvore_alunos, nome);
             break;
 
@@ -86,7 +86,7 @@ int main()
         case 6:
             printf("Insira o nome do filme: ");
             char titulo_busca[MAX_TITULO];
-            scanf("%s", titulo_busca);
+            scanf(" %[^\n]s", titulo_busca);
 
             int assistido = 0;
             buscaFilme(arvore_filmes->raiz, titulo_busca, &assistido);

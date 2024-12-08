@@ -23,6 +23,7 @@ typedef struct avlAluno
     Aluno *raiz;
 } AvlAluno;
 
+AvlAluno *Criar_Arvore_Aluno();
 int aux_inserir_aluno(Aluno **raiz, char *nome, int *cresceu);
 int cadastraAluno(AvlAluno *arvore, char *nome); // Cadastra um aluno no sistema
 Aluno *buscaAluno(Aluno *p, int usp);            // Busca um aluno no sistema a partir do seu nome

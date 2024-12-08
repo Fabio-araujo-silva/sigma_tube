@@ -1,10 +1,20 @@
 //#include ".\include\avl_alunos.h"
 #include "../include/avl_alunos.h"
 
-static int usp_counter = 1;
+int usp_counter = 0;
 
 // funcoes do tad
 int altura(Aluno *p);
+
+AvlAluno *Criar_Arvore_Aluno() {
+    AvlAluno *arvore_alunos = (AvlAluno *)malloc(sizeof(AvlAluno));
+
+    if (arvore_alunos != NULL) {
+        arvore_alunos->raiz = NULL;
+        return arvore_alunos;
+    }
+    return NULL;
+}
 
 void DD_a (Aluno **r)
 {

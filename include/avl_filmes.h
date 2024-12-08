@@ -15,6 +15,7 @@ typedef struct avlFilme
     NoFilmeAvl *raiz;
 } AvlFilme;
 
+AvlFilme *Criar_Arvore_Filme();
 // Funções de manipulação de estruturas
 int aux_inserir_filme(NoFilmeAvl **raiz, char *titulo, int categoria, int *cresceu); // Função auxiliar para inserção de filmes
 int cadastraFilme(AvlFilme *arvore, char *titulo, int categoria);                    // Cadastra um filme no sistema

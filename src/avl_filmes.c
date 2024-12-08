@@ -1,6 +1,16 @@
 //#include ".\include\avl_filmes.h"
 #include "../include/avl_filmes.h"
 
+AvlFilme *Criar_Arvore_Filme() {
+    AvlFilme *arvore_filmes = (AvlFilme *)malloc(sizeof(AvlFilme));
+
+    if (arvore_filmes != NULL) {
+        arvore_filmes->raiz = NULL;
+        return arvore_filmes;
+    }
+    return NULL;
+}
+
 // Função para rotacionar à direita
 void DD_f (NoFilmeAvl **raiz)
 {
