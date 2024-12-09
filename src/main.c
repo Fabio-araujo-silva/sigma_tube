@@ -210,13 +210,16 @@ int MainMenu(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
                         if (buscaFilme(arvore_filmes->raiz, nomefilme, 0) == 0)
                         {
                             printf("Categoria do filme %d: \n",count);
-                            printf("1 - Romance\n");
-                            printf("2 - Comedia\n");
-                            printf("3 - Drama\n");
-                            printf("4 - Terror\n");
-                            printf("5 - Ficcao\n");
-                            printf("6 - Acao\n");
-                            scanf("%d", &categoria);
+                            do
+                            {
+                                printf("1 - Romance\n");
+                                printf("2 - Comedia\n");
+                                printf("3 - Drama\n");
+                                printf("4 - Terror\n");
+                                printf("5 - Ficcao\n");
+                                printf("6 - Acao\n");
+                                scanf("%d", &categoria);
+                            } while (categoria > 6 || categoria < 1);
                            //aumentar em 1 a visualização
                            adicionarFilmeAssistido(arvore_alunos, n_uspb, nomefilme); 
                            cadastraFilme(arvore_filmes, nomefilme, categoria - 1);
@@ -244,5 +247,4 @@ int MainMenu(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
         }
         
     } while (modo != 4);
-
 }

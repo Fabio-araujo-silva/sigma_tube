@@ -183,10 +183,42 @@ int cadastraFilme(AvlFilme *arvore, char *titulo, int categoria)
 // Lista todos os filmes cadastrados em ordem alfabética
 int listaFilme(NoFilmeAvl *p)
 {
+    char categoria[30];
     if (p != NULL)
     {
         listaFilme(p->esq);
-        printf("%s\n", p->titulo);
+        printf("Titulo: %s,  ", p->titulo);
+        switch (p->categoria)
+        {
+            case 0:
+                strcpy(categoria, "Romance");
+                break;
+            
+            case 1:
+                strcpy(categoria, "Comedia");
+                break;
+            
+            case 2:
+                strcpy(categoria, "Drama");
+                break;
+
+            case 3:
+                strcpy(categoria, "Terror");
+                break;
+
+            case 4:
+                strcpy(categoria, "Ficcao");
+                break;
+            
+            case 5:
+                strcpy(categoria, "Acao");
+                break;
+
+            default:
+                strcpy(categoria, " ");
+                break;
+        }
+        printf("Categoria: %s.\n", categoria);
         listaFilme(p->dir);
     }
     return 1;
