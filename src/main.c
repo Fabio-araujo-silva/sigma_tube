@@ -136,7 +136,6 @@ int Usuario(int n_usp, AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
             // Encontrar colega com gostos similares
             case 2:
                 colega = recomendaConvergente(arvore_alunos->raiz, n_usp);
-
                 printf("O colega com gosto similar é: %s\n", colega->nome);
                 break;
 

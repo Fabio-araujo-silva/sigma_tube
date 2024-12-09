@@ -405,35 +405,50 @@ float Metrica(Aluno *X, Aluno *Y)
 }
 
 void EncontrarMaisProximo(Aluno *p, Aluno *X, Aluno **mais_proximo, float *melhor_metrica) {
-    if (p == NULL) {
-        return;
+    if (p == NULL || X == NULL) {
+        return; // Evita acessar nós nulos
     }
 
-    // Calcular a métrica para o aluno atual, se for diferente de X
-    if (p != X) { // Comparação por endereço para evitar o próprio aluno
+    // Calcula a métrica apenas se os alunos forem diferentes
+    if (p != X) {
         float metrica_atual = Metrica(X, p);
-        if (metrica_atual > *melhor_metrica) {
+        if (*mais_proximo == NULL || metrica_atual > *melhor_metrica) {
             *melhor_metrica = metrica_atual;
             *mais_proximo = p;
         }
     }
 
-    // Percorrer subárvore esquerda e direita
+    // Percorre os nós recursivamente
     EncontrarMaisProximo(p->esq, X, mais_proximo, melhor_metrica);
     EncontrarMaisProximo(p->dir, X, mais_proximo, melhor_metrica);
 }
 
+
 // Função principal de recomendação de mais próximo
 Aluno *recomendaConvergente(Aluno *p, int n_usp) {
+    if (p == NULL) {
+        printf("Erro: Árvore de alunos vazia.\n");
+        return NULL;
+    }
+
+    Aluno *X = buscaAluno(p, n_usp);
+    if (X == NULL) {
+        printf("Erro: Aluno com N_USP %d não encontrado.\n", n_usp);
+        return NULL;
+    }
+
     Aluno *mais_proximo = NULL;
     float melhor_metrica = 0;
 
-    Aluno *X = buscaAluno(p, n_usp);
-
     EncontrarMaisProximo(p, X, &mais_proximo, &melhor_metrica);
 
-    return (mais_proximo);
+    if (mais_proximo == NULL) {
+        printf("Erro: Nenhum aluno encontrado como mais próximo.\n");
+    }
+
+    return mais_proximo;
 }
+
 
 void EncontrarMaisDistante(Aluno *p, Aluno *X, Aluno **mais_distante, float *melhor_metrica) {
     if (p == NULL) {
@@ -456,15 +471,29 @@ void EncontrarMaisDistante(Aluno *p, Aluno *X, Aluno **mais_distante, float *mel
 
 // Função principal de recomendação de mais distante
 Aluno *recomendaDivergente(Aluno *p, int n_usp) {
-    Aluno *mais_distante = NULL;
-    float melhor_metrica = 1;
+    if (p == NULL) {
+        printf("Erro: Árvore de alunos vazia.\n");
+        return NULL;
+    }
 
     Aluno *X = buscaAluno(p, n_usp);
+    if (X == NULL) {
+        printf("Erro: Aluno com N_USP %d não encontrado.\n", n_usp);
+        return NULL;
+    }
+
+    Aluno *mais_distante = NULL;
+    float melhor_metrica = 1; // Iniciar com o valor máximo para minimizar
 
     EncontrarMaisDistante(p, X, &mais_distante, &melhor_metrica);
 
-    return (mais_distante);
+    if (mais_distante == NULL) {
+        printf("Erro: Nenhum aluno encontrado como mais distante.\n");
+    }
+
+    return mais_distante;
 }
+
 
 int adicionarFilmeAssistido(AvlAluno *arvore, int n_usp, char *nome_filme) {
     // Busca o aluno a partir do n_usp
