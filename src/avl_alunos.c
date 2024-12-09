@@ -395,11 +395,11 @@ float Metrica(Aluno *X, Aluno *Y)
     float norma_X = 0, norma_Y = 0, produto_interno = 0;
     for(i = 0; i < MAX_CATEGORIAS; i++)
     {
-        norma_X += pow(X->categorias[i], 2);
-        norma_Y += pow(Y->categorias[i], 2);
+        norma_X += pow((double)X->categorias[i], 2.0);
+        norma_Y += pow((double)Y->categorias[i], 2.0);
         produto_interno += X->categorias[i] * Y->categorias[i];
     }
-    produto_interno = pow(produto_interno, 2);
+    produto_interno = pow((double)produto_interno, 2.0);
     if(norma_X == 0 || norma_Y == 0)
         return 0;
     else
