@@ -214,4 +214,3 @@ int buscaFilme(NoFilmeAvl *p, char *titulo, int *assistido)
         return 1;
     }
 }
-

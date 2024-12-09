@@ -163,7 +163,7 @@ int Usuario(int n_usp, AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
 
 int MainMenu(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
 {
-    int modo, n_usp;
+    int modo, n_usp, flag, count;
     printf("Selecione a opção desejada:\n");
 
     do {
@@ -191,10 +191,29 @@ int MainMenu(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
                 break;
 
             case 2:
+                count = 1;
+                char nomefilme[MAX_TITULO];
                 printf("Insira o nome do aluno: ");
                 char nome[MAX_NOME];
                 scanf(" %[^\n]s", nome);
                 cadastraAluno(arvore_alunos, nome);
+                    printf("Insira os filmes ja assistidos por você: \n");
+                do {
+                    printf("1 - Adicionar um filme\n2 - Sair");
+                    scanf("%d", &flag);
+                    if (flag == 1)
+                    {
+                        printf("Nome do filme %d: ",count);
+                        scanf(" %[^\n]s", nomefilme);
+                        if (buscaFilme(arvore_filmes, nomefilme, 0) == 1)
+                        {
+                           //aumentar em 1 a visualização
+                           buscaAluno(arvore_alunos, ) 
+                        }
+                        count++;
+                    }
+                } while (flag != 2)
+
                 break;
 
             case 3:
