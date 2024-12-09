@@ -56,11 +56,11 @@ int Adm(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
 
                     if (aluno != NULL)
                     {
-                        printf("Aluno encontrado!\n");
+                        printf("Aluno %s, N_USP: %d encontrado!\n", aluno->nome, aluno->n_usp);
                     }
                     else
                     {
-                        printf("Aluno nao encontrado!\n");
+                        printf("Aluno com numero USP %d nao encontrado!\n", n_usp);
                     }
                     break;
 
@@ -69,7 +69,7 @@ int Adm(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
                     printf("Insira o número do aluno a ser removido: ");
                     int balanceamento;
                     scanf("%d", &n_usp);
-                    removerAluno(&arvore_alunos->raiz, n_usp, &balanceamento);
+                    removerAluno(&arvore_alunos->raiz, n_usp, &balanceamento) == 1 ? printf("Aluno dono do numero USP %d, removido com sucesso\n", n_usp) : printf("Erro na remocao do usuario n_usp %d\n", n_usp);
 
                 // Listar filmes
                 case 4:
@@ -197,7 +197,7 @@ int MainMenu(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
                 char nome[MAX_NOME];
                 scanf(" %[^\n]s", nome);
                 cadastraAluno(arvore_alunos, nome, &n_uspb);
-                printf("Ótimo! seu numero usp e --> %d\n\n",n_uspb);
+                printf("Ótimo! %s, voce foi cadastrado com numero usp: '%d'\n\n",nome, n_uspb);
                     printf("Deseja adicionar os filmes ja assistidos por você?\n");
                 do {
                     printf("1 - Adicionar um filme\n2 - Sair\n\n");
@@ -239,6 +239,7 @@ int MainMenu(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
                 exit(0);
 
             default:
+                MainMenu(arvore_alunos, arvore_filmes);
                 break;
         }
         
