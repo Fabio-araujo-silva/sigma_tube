@@ -471,13 +471,15 @@ int adicionarFilmeAssistido(AvlAluno *arvore, int n_usp, char *nome_filme) {
     Aluno *aluno = buscaAluno(arvore->raiz, n_usp);
     if (aluno == NULL) {
         // Aluno não encontrado
+        printf("Erro: Aluno com N_USP %d não encontrado.\n", n_usp);
         return -1;
     }
     
     // Cria um novo nó de filme
-    NoFilmeLinear *novo = (NoFilmeLinear*) malloc(sizeof(NoFilmeLinear));
+    NoFilmeLinear *novo = (NoFilmeLinear *) malloc(sizeof(NoFilmeLinear));
     if (novo == NULL) {
         // Falha na alocação
+        printf("Erro: Falha na alocação de memória para filme %s.\n", nome_filme);
         return -2;
     }
     strcpy(novo->titulo, nome_filme);
@@ -490,13 +492,14 @@ int adicionarFilmeAssistido(AvlAluno *arvore, int n_usp, char *nome_filme) {
     } else {
         // Insere no final da lista circular
         NoFilmeLinear *aux = aluno->iniAssistidos;
-        while (aux->prox != aluno->iniAssistidos) {
+        while (aux->prox != NULL && aux->prox != aluno->iniAssistidos) {
             aux = aux->prox;
         }
-        // Agora aux é o último nó da lista
+        // Insere o novo nó no final
         novo->prox = aluno->iniAssistidos;
         aux->prox = novo;
     }
 
+    printf("Filme '%s' adicionado com sucesso para o aluno %d.\n", nome_filme, n_usp);
     return 0; // Sucesso
 }
