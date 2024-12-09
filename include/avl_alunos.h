@@ -4,7 +4,7 @@
 typedef struct noFilmeLinear
 {
     char titulo[MAX_TITULO];
-    struct no_filme_Linear *prox;
+    struct noFilmeLinear *prox;
 } NoFilmeLinear;
 
 typedef struct aluno

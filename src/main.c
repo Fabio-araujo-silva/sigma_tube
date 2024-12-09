@@ -197,7 +197,7 @@ int MainMenu(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
                 printf("Insira o nome do aluno: ");
                 char nome[MAX_NOME];
                 scanf(" %[^\n]s", nome);
-                cadastraAluno(arvore_alunos, nome, &n_uspb);
+                cadastraAluno(arvore_alunos, nome, n_uspb);
                     printf("Insira os filmes ja assistidos por você: \n");
                 do {
                     printf("1 - Adicionar um filme\n2 - Sair");
@@ -214,12 +214,12 @@ int MainMenu(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
                         printf("4 - Terror\n");
                         printf("5 - Ficcao\n");
                         printf("6 - Acao\n");
-                        scanf("%d", categoria);
+                        scanf("%d", &categoria);
 
-                        if (buscaFilme(arvore_filmes, nomefilme, 0) == 0)
+                        if (buscaFilme(arvore_filmes->raiz, nomefilme, 0) == 0)
                         {
                            //aumentar em 1 a visualização
-                           adicionarFilmeAssistido(arvore_alunos, n_usp, *nomefilme); 
+                           adicionarFilmeAssistido(arvore_alunos, n_usp, nomefilme); 
                            cadastraFilme(arvore_filmes, nomefilme, categoria - 1);
                         }
                         else
