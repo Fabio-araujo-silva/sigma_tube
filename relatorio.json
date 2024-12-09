@@ -14,7 +14,7 @@
     },
     {
       "n_usp": 2,
-      "nome": "bruno",
+      "nome": "julha",
       "filmes_por_categoria": {
         "categoria_0": 0,
         "categoria_1": 0,
@@ -26,7 +26,7 @@
     },
     {
       "n_usp": 3,
-      "nome": "carlos",
+      "nome": "robertao",
       "filmes_por_categoria": {
         "categoria_0": 0,
         "categoria_1": 0,
@@ -39,14 +39,19 @@
   ],
   "filmes": [
     {
-      "titulo": "ahrek",
-      "categoria": 0,
+      "titulo": "shrek 5",
+      "categoria": 1,
       "espectadores": 1
     },
     {
-      "titulo": "shrek",
+      "titulo": "shrek 6",
       "categoria": 3,
       "espectadores": 2
+    },
+    {
+      "titulo": "shrek 7",
+      "categoria": 5,
+      "espectadores": 1
     }
   ]
 }

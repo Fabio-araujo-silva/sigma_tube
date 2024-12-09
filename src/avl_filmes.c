@@ -1,10 +1,13 @@
-//#include "../include/avl_filmes.h"
+#include "../include/avl_filmes.h"
 
-#include "..\include\avl_filmes.h"
+//#include "..\include\avl_filmes.h"
 
 
 void escreveFilmesJSON(FILE *file, NoFilmeAvl *no, int *primeiro);
 void escreveAlunosJSON(FILE *file, Aluno *no, int *primeiro);
+void escreveFilmesTerminal(NoFilmeAvl *no);
+void escreveAlunosTerminal(Aluno *no);
+
 
 AvlFilme *Criar_Arvore_Filme() {
     AvlFilme *arvore_filmes = (AvlFilme *)malloc(sizeof(AvlFilme));
@@ -332,28 +335,26 @@ int top10doMomento(NoFilmeAvl *raiz) {
 void geraRelatorioTerminal(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes) {
     printf("Relatório do Sistema:\n");
     printf("=====================\n");
+
+    // Processar alunos
     printf("Lista de Alunos:\n");
-
-    Aluno *alunoAtual = arvore_alunos->raiz;
-    while (alunoAtual != NULL) { // Iterar pelos alunos da árvore
-        printf("Nome: %s, N_USP: %d\n", alunoAtual->nome, alunoAtual->n_usp);
-        printf("Filmes assistidos por categoria:\n");
-        for (int i = 0; i < MAX_CATEGORIAS; i++) {
-            printf("  Categoria %d: %d filmes\n", i, alunoAtual->categorias[i]);
-        }
-        alunoAtual = alunoAtual->dir; // Supondo um método para iterar os nós
+    if (arvore_alunos->raiz == NULL) {
+        printf("Nenhum aluno cadastrado.\n");
+    } else {
+        escreveAlunosTerminal(arvore_alunos->raiz);
     }
 
+    // Processar filmes
     printf("\nLista de Filmes:\n");
-    NoFilmeAvl *filmeAtual = arvore_filmes->raiz;
-    while (filmeAtual != NULL) { // Iterar pelos filmes da árvore
-        printf("Título: %s, Categoria: %d, Espectadores: %d\n", 
-               filmeAtual->titulo, 
-               filmeAtual->categoria, 
-               *(filmeAtual->espectadores));
-        filmeAtual = filmeAtual->dir; // Supondo um método para iterar os nós
+    if (arvore_filmes->raiz == NULL) {
+        printf("Nenhum filme cadastrado.\n");
+    } else {
+        escreveFilmesTerminal(arvore_filmes->raiz);
     }
+
+    printf("=====================\n");
 }
+
 
 void escreveAlunosJSON(FILE *file, Aluno *no, int *primeiro) {
     if (no == NULL) return;
@@ -429,4 +430,38 @@ void geraRelatorioJSON(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes, const c
     fprintf(file, "}\n");
     fclose(file);
     printf("Relatório JSON salvo em %s\n", filename);
+}
+
+void escreveAlunosTerminal(Aluno *no) {
+    if (no == NULL) return;
+
+    // Percorre a subárvore esquerda
+    escreveAlunosTerminal(no->esq);
+
+    // Exibe o nó atual
+    printf("N USP: %d, Nome: %s\n", no->n_usp, no->nome);
+    printf("Filmes assistidos por categoria:\n");
+    for (int i = 0; i < MAX_CATEGORIAS; i++) {
+        printf("  Categoria %d: %d filmes\n", i, no->categorias[i]);
+    }
+    printf("-------------------------\n");
+
+    // Percorre a subárvore direita
+    escreveAlunosTerminal(no->dir);
+}
+
+void escreveFilmesTerminal(NoFilmeAvl *no) {
+    if (no == NULL) return;
+
+    // Percorre a subárvore esquerda
+    escreveFilmesTerminal(no->esq);
+
+    // Exibe o nó atual
+    printf("Título: %s\n", no->titulo);
+    printf("  Categoria: %d\n", no->categoria);
+    printf("  Espectadores: %d\n", *(no->espectadores));
+    printf("-------------------------\n");
+
+    // Percorre a subárvore direita
+    escreveFilmesTerminal(no->dir);
 }
