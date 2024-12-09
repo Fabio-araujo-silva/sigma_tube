@@ -250,3 +250,22 @@ int buscaFilme(NoFilmeAvl *p, char *titulo, int *assistido)
         return 1; // Filme encontrado
     }
 }
+
+int adicionarVisualizacao(AvlFilme *arvore, char *titulo) {
+    NoFilmeAvl *atual = arvore->raiz;
+
+    while (atual != NULL) {
+        int cmp = strcmp(titulo, atual->titulo);
+
+        if (cmp == 0) {
+            // Filme encontrado, incrementa o número de espectadores
+            (*(atual->espectadores))++;
+            return 1; // Sucesso
+        } else if (cmp < 0) {
+            atual = atual->esq; // Busca na subárvore esquerda
+        } else {
+            atual = atual->dir; // Busca na subárvore direita
+        }
+    }
+    return 0; // Filme não encontrado
+}

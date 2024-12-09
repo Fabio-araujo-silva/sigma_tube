@@ -220,14 +220,21 @@ int MainMenu(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
                                 printf("6 - Acao\n");
                                 scanf("%d", &categoria);
                             } while (categoria > 6 || categoria < 1);
-                           //aumentar em 1 a visualização
                            adicionarFilmeAssistido(arvore_alunos, n_uspb, nomefilme); 
                            cadastraFilme(arvore_filmes, nomefilme, categoria - 1);
+                           if (adicionarVisualizacao(arvore_filmes, nomefilme))
+                                printf("Visualização adicionada com sucesso!\n");
                         }
                         else
                         {
-                            printf("Adicionado!\n");
-                            //aumentar visualização
+                            if (adicionarVisualizacao(arvore_filmes, nomefilme))
+                           {
+                                printf("Visualização adicionada com sucesso!\n");
+                           }
+                           else
+                           {
+                                printf("Filme não encontrado.\n");
+                           }
                         }
                         count++;
                     }

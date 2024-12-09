@@ -19,10 +19,9 @@ AvlFilme *Criar_Arvore_Filme();
 // Funções de manipulação de estruturas
 int aux_inserir_filme(NoFilmeAvl **raiz, char *titulo, int categoria, int *cresceu); // Função auxiliar para inserção de filmes
 int cadastraFilme(AvlFilme *arvore, char *titulo, int categoria);                    // Cadastra um filme no sistema
-
 int listaFilme(NoFilmeAvl *p); // Lista todos os filmes cadastrados em ordem alfabética
-
 int buscaFilme(NoFilmeAvl *p, char *titulo, int *assistido); // Busca filme a partir de seu nome e verifica se foi assistido, retornando inteiro correspondente
+int adicionarVisualizacao(AvlFilme *arvore, char *titulo);
 /*
 // adicionais
 int top10doMomento(); // Exibe os 10 filmes mais populares do momento
