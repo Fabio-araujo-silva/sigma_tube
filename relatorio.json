@@ -8,49 +8,15 @@
         "categoria_1": 0,
         "categoria_2": 0,
         "categoria_3": 0,
-        "categoria_4": 0,
-        "categoria_5": 0
-      }
-    },
-    {
-      "n_usp": 2,
-      "nome": "julha",
-      "filmes_por_categoria": {
-        "categoria_0": 0,
-        "categoria_1": 0,
-        "categoria_2": 0,
-        "categoria_3": 0,
-        "categoria_4": 0,
-        "categoria_5": 0
-      }
-    },
-    {
-      "n_usp": 3,
-      "nome": "robertao",
-      "filmes_por_categoria": {
-        "categoria_0": 0,
-        "categoria_1": 0,
-        "categoria_2": 0,
-        "categoria_3": 0,
-        "categoria_4": 0,
+        "categoria_4": 1,
         "categoria_5": 0
       }
     }
   ],
   "filmes": [
     {
-      "titulo": "shrek 5",
-      "categoria": 1,
-      "espectadores": 1
-    },
-    {
-      "titulo": "shrek 6",
+      "titulo": "shrek",
       "categoria": 3,
-      "espectadores": 2
-    },
-    {
-      "titulo": "shrek 7",
-      "categoria": 5,
       "espectadores": 1
     }
   ]

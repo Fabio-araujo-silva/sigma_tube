@@ -495,7 +495,7 @@ Aluno *recomendaDivergente(Aluno *p, int n_usp) {
 }
 
 
-int adicionarFilmeAssistido(AvlAluno *arvore, int n_usp, char *nome_filme) {
+int adicionarFilmeAssistido(AvlAluno *arvore, int n_usp, char *nome_filme, int categoria) {
     // Busca o aluno a partir do n_usp
     Aluno *aluno = buscaAluno(arvore->raiz, n_usp);
     if (aluno == NULL) {
@@ -521,7 +521,7 @@ int adicionarFilmeAssistido(AvlAluno *arvore, int n_usp, char *nome_filme) {
     } else {
         // Insere no final da lista circular
         NoFilmeLinear *aux = aluno->iniAssistidos;
-        while (aux->prox != NULL && aux->prox != aluno->iniAssistidos) {
+        while (aux->prox != aluno->iniAssistidos) {
             aux = aux->prox;
         }
         // Insere o novo nó no final
@@ -529,6 +529,14 @@ int adicionarFilmeAssistido(AvlAluno *arvore, int n_usp, char *nome_filme) {
         aux->prox = novo;
     }
 
-    printf("Filme '%s' adicionado com sucesso para o aluno %d.\n", nome_filme, n_usp);
+    // Incrementa o contador da categoria correspondente
+    if (categoria >= 0 && categoria < MAX_CATEGORIAS) {
+        aluno->categorias[categoria]++;
+    } else {
+        printf("Aviso: Categoria %d está fora do intervalo válido.\n", categoria);
+    }
+
+    printf("Filme '%s' adicionado com sucesso para o aluno %d na categoria %d.\n", nome_filme, n_usp, categoria);
     return 0; // Sucesso
 }
+

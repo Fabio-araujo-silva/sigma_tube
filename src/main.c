@@ -182,7 +182,7 @@ int Usuario(int n_usp, AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
                                 printf("6 - Acao\n");
                                 scanf("%d", &categoria);
                             } while (categoria > 6 || categoria < 1);
-                           adicionarFilmeAssistido(arvore_alunos, n_usp, nomefilme); 
+                           adicionarFilmeAssistido(arvore_alunos, n_usp, nomefilme, categoria); 
                            cadastraFilme(arvore_filmes, nomefilme, categoria - 1);
                            if (adicionarVisualizacao(arvore_filmes, nomefilme))
                                 printf("Visualização adicionada com sucesso!\n");
@@ -259,7 +259,7 @@ int MainMenu(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
                                 printf("6 - Acao\n");
                                 scanf("%d", &categoria);
                             } while (categoria > 6 || categoria < 1);
-                           adicionarFilmeAssistido(arvore_alunos, n_uspb, nomefilme); 
+                           adicionarFilmeAssistido(arvore_alunos, n_uspb, nomefilme, categoria); 
                            cadastraFilme(arvore_filmes, nomefilme, categoria - 1);
                            if (adicionarVisualizacao(arvore_filmes, nomefilme))
                                 printf("Visualização adicionada com sucesso!\n");

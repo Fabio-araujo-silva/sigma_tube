@@ -39,7 +39,7 @@ void EncontrarMaisProximo(Aluno *p, Aluno *X, Aluno **mais_proximo, float *melho
 Aluno *recomendaConvergente(Aluno *p, int n_usp);
 void EncontrarMaisDistante(Aluno *p, Aluno *X, Aluno **mais_distante, float *melhor_metrica);
 Aluno *recomendaDivergente(Aluno *p, int n_usp);
-int adicionarFilmeAssistido(AvlAluno *arvore, int n_usp, char *nome_filme);
+int adicionarFilmeAssistido(AvlAluno *arvore, int n_usp, char *nome_filme, int categoria);
 /*
 int infosArvore();              // Exibe informações técnicas da ABB de alunos
 int retirarAluno();             // Apaga cadastro de um aluno
