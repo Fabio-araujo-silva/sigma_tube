@@ -5,6 +5,7 @@ int usp_counter = 0;
 // funcoes do tad
 int altura(Aluno *p);
 
+
 AvlAluno *Criar_Arvore_Aluno() {
     AvlAluno *arvore_alunos = (AvlAluno *)malloc(sizeof(AvlAluno));
 

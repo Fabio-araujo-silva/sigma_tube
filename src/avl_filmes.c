@@ -8,6 +8,9 @@ void escreveAlunosJSON(FILE *file, Aluno *no, int *primeiro);
 void escreveFilmesTerminal(NoFilmeAvl *no);
 void escreveAlunosTerminal(Aluno *no);
 
+const char *NOMES_CATEGORIAS[MAX_CATEGORIAS] = {
+    "Romance", "Comédia", "Drama", "Terror", "Ficção", "Ação"
+};
 
 AvlFilme *Criar_Arvore_Filme() {
     AvlFilme *arvore_filmes = (AvlFilme *)malloc(sizeof(AvlFilme));
@@ -355,7 +358,6 @@ void geraRelatorioTerminal(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes) {
     printf("=====================\n");
 }
 
-
 void escreveAlunosJSON(FILE *file, Aluno *no, int *primeiro) {
     if (no == NULL) return;
 
@@ -373,7 +375,7 @@ void escreveAlunosJSON(FILE *file, Aluno *no, int *primeiro) {
     fprintf(file, "      \"nome\": \"%s\",\n", no->nome);
     fprintf(file, "      \"filmes_por_categoria\": {\n");
     for (int i = 0; i < MAX_CATEGORIAS; i++) {
-        fprintf(file, "        \"categoria_%d\": %d", i, no->categorias[i]);
+        fprintf(file, "        \"%s\": %d", NOMES_CATEGORIAS[i], no->categorias[i]);
         if (i < MAX_CATEGORIAS - 1) fprintf(file, ",");
         fprintf(file, "\n");
     }
@@ -398,7 +400,7 @@ void escreveFilmesJSON(FILE *file, NoFilmeAvl *no, int *primeiro) {
 
     fprintf(file, "    {\n");
     fprintf(file, "      \"titulo\": \"%s\",\n", no->titulo);
-    fprintf(file, "      \"categoria\": %d,\n", no->categoria);
+    fprintf(file, "      \"categoria\": \"%s\",\n", NOMES_CATEGORIAS[no->categoria]);
     fprintf(file, "      \"espectadores\": %d\n", *(no->espectadores));
     fprintf(file, "    }");
 
@@ -442,7 +444,7 @@ void escreveAlunosTerminal(Aluno *no) {
     printf("N USP: %d, Nome: %s\n", no->n_usp, no->nome);
     printf("Filmes assistidos por categoria:\n");
     for (int i = 0; i < MAX_CATEGORIAS; i++) {
-        printf("  Categoria %d: %d filmes\n", i, no->categorias[i]);
+        printf("  %s: %d filmes\n", NOMES_CATEGORIAS[i], no->categorias[i]);
     }
     printf("-------------------------\n");
 
@@ -458,10 +460,11 @@ void escreveFilmesTerminal(NoFilmeAvl *no) {
 
     // Exibe o nó atual
     printf("Título: %s\n", no->titulo);
-    printf("  Categoria: %d\n", no->categoria);
+    printf("  Categoria: %s\n", NOMES_CATEGORIAS[no->categoria]);
     printf("  Espectadores: %d\n", *(no->espectadores));
     printf("-------------------------\n");
 
     // Percorre a subárvore direita
     escreveFilmesTerminal(no->dir);
 }
+
