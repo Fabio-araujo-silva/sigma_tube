@@ -495,20 +495,24 @@ Aluno *recomendaDivergente(Aluno *p, int n_usp) {
     return mais_distante;
 }
 
-
 int adicionarFilmeAssistido(AvlAluno *arvore, int n_usp, char *nome_filme, int categoria) {
+    // Ajustar a categoria para indexação baseada em 0
+    if (categoria < 1 || categoria > MAX_CATEGORIAS) {
+        printf("Erro: Categoria %d inválida. Deve estar entre 1 e %d.\n", categoria, MAX_CATEGORIAS);
+        return -3; // Retorno para categoria inválida
+    }
+    categoria -= 1; // Converter de 1 a 6 para 0 a 5
+
     // Busca o aluno a partir do n_usp
     Aluno *aluno = buscaAluno(arvore->raiz, n_usp);
     if (aluno == NULL) {
-        // Aluno não encontrado
         printf("Erro: Aluno com N_USP %d não encontrado.\n", n_usp);
         return -1;
     }
-    
+
     // Cria um novo nó de filme
     NoFilmeLinear *novo = (NoFilmeLinear *) malloc(sizeof(NoFilmeLinear));
     if (novo == NULL) {
-        // Falha na alocação
         printf("Erro: Falha na alocação de memória para filme %s.\n", nome_filme);
         return -2;
     }
@@ -516,8 +520,7 @@ int adicionarFilmeAssistido(AvlAluno *arvore, int n_usp, char *nome_filme, int c
 
     // Caso a lista de filmes assistidos esteja vazia
     if (aluno->iniAssistidos == NULL) {
-        // Lista circular de um único elemento
-        novo->prox = novo;
+        novo->prox = novo; // Lista circular de um único elemento
         aluno->iniAssistidos = novo;
     } else {
         // Insere no final da lista circular
@@ -525,19 +528,14 @@ int adicionarFilmeAssistido(AvlAluno *arvore, int n_usp, char *nome_filme, int c
         while (aux->prox != aluno->iniAssistidos) {
             aux = aux->prox;
         }
-        // Insere o novo nó no final
         novo->prox = aluno->iniAssistidos;
         aux->prox = novo;
     }
 
     // Incrementa o contador da categoria correspondente
-    if (categoria >= 0 && categoria < MAX_CATEGORIAS) {
-        aluno->categorias[categoria]++;
-    } else {
-        printf("Aviso: Categoria %d está fora do intervalo válido.\n", categoria);
-    }
-
-    printf("Filme '%s' adicionado com sucesso para o aluno %d na categoria %d.\n", nome_filme, n_usp, categoria);
+    aluno->categorias[categoria]++;
+    printf("Filme '%s' adicionado com sucesso para o aluno %d na categoria '%s'.\n", 
+           nome_filme, n_usp, NOMES_CATEGORIAS[categoria]);
     return 0; // Sucesso
 }
 

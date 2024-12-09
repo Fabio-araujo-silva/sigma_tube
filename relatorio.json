@@ -7,8 +7,8 @@
         "Romance": 0,
         "Comédia": 0,
         "Drama": 0,
-        "Terror": 0,
-        "Ficção": 1,
+        "Terror": 1,
+        "Ficção": 0,
         "Ação": 0
       }
     }

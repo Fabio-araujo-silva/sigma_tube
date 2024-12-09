@@ -8,10 +8,6 @@ void escreveAlunosJSON(FILE *file, Aluno *no, int *primeiro);
 void escreveFilmesTerminal(NoFilmeAvl *no);
 void escreveAlunosTerminal(Aluno *no);
 
-const char *NOMES_CATEGORIAS[MAX_CATEGORIAS] = {
-    "Romance", "Comédia", "Drama", "Terror", "Ficção", "Ação"
-};
-
 AvlFilme *Criar_Arvore_Filme() {
     AvlFilme *arvore_filmes = (AvlFilme *)malloc(sizeof(AvlFilme));
 
