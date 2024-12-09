@@ -35,7 +35,7 @@ int Adm(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
             printf("2 - Buscar um aluno\n");                              // Busca um aluno no sistema a partir do seu nome verificando se está cadastrado
             printf("3 - Remover um aluno\n");                             // Remove um aluno do sistema
             printf("4 - Listar filmes\n");                                // Lista todos os filmes cadastrados no sistema
-            printf("5 - Produzir relatório\n");                          // Gera arquivo de texto com todas as informações do sistema
+            printf("5 - Produzir relatórios\n");                          // Gera arquivo de texto com todas as informações do sistema
             printf("6 - Exibir informações técnicas de armazenmento\n"); // Exibe informações técnicas da ABB de alunos
             printf("7 - Sair\n");
             scanf("%d", &modo);
@@ -84,7 +84,12 @@ int Adm(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
                     infosArvore();
                     break;
                 */
-            case 7:
+                case 5:
+                    geraRelatorioTerminal(arvore_alunos, arvore_filmes);
+                    geraRelatorioJSON(arvore_alunos, arvore_filmes, "relatorio.json");
+                    break;
+
+                case 7:
                     MainMenu(arvore_alunos, arvore_filmes);
                     break;
 
@@ -97,7 +102,9 @@ int Adm(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
 
 int Usuario(int n_usp, AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
 {
-    int modo;
+    int modo, flag, categoria, n_uspb;
+    int count = 1;
+    char nomefilme[MAX_TITULO];
     Aluno *colega;
 
     printf("=========================================\n");
@@ -108,8 +115,9 @@ int Usuario(int n_usp, AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
         printf("1 - Buscar um filme\n");                              // Busca um filme no sistema a partir do seu nome verificando se foi assistido
         printf("2 - Encontrar colega com gostos similares\n");        // Encontra um amigo com gostos similares a partir de um aluno
         printf("3 - Encontrar colega com gostos diferentes\n");       // Encontra um amigo com gostos diferentes a partir de um aluno
-        printf("4 - Exibir top 10 filmes do momento\n");              // Exibe os 10 filmes mais populares do momento
-        printf("5 - Sair\n");
+        printf("4 - Exibir top 10 filmes do momento\n"); // Exibe os 10 filmes mais populares do momento
+        printf("5 - Adicionar filme\n");
+        printf("6 - Sair\n");
         scanf("%d", &modo);
 
         switch (modo)
@@ -150,14 +158,38 @@ int Usuario(int n_usp, AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
                 /*top10doMomento();*/
                 break;
             
-            case 5:
+            case 5:                    
+                        printf("Nome do filme %d: ",count);
+                        scanf(" %[^\n]s", nomefilme);
+
+                        if (buscaFilme(arvore_filmes->raiz, nomefilme, 0) == 0)
+                        {
+                            printf("Categoria do filme %d: \n",count);
+                            do
+                            {
+                                printf("1 - Romance\n");
+                                printf("2 - Comedia\n");
+                                printf("3 - Drama\n");
+                                printf("4 - Terror\n");
+                                printf("5 - Ficcao\n");
+                                printf("6 - Acao\n");
+                                scanf("%d", &categoria);
+                            } while (categoria > 6 || categoria < 1);
+                           adicionarFilmeAssistido(arvore_alunos, n_usp, nomefilme); 
+                           cadastraFilme(arvore_filmes, nomefilme, categoria - 1);
+                           if (adicionarVisualizacao(arvore_filmes, nomefilme))
+                                printf("Visualização adicionada com sucesso!\n");
+                        }
+                break;
+
+            case 6:
                 MainMenu(arvore_alunos, arvore_filmes);
                 break;
 
             default:
                 break;        
         }
-        } while (modo != 5);
+        } while (modo != 6);
 }
 
 int MainMenu(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
@@ -199,7 +231,7 @@ int MainMenu(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
                 printf("Ótimo! %s, voce foi cadastrado com numero usp: '%d'\n\n",nome, n_uspb);
                     printf("Deseja adicionar os filmes ja assistidos por você?\n");
                 do {
-                    printf("1 - Adicionar um filme\n2 - Sair\n\n");
+                    printf("1 - Adicionar um filme\n2 - Nao\n\n");
                     scanf("%d", &flag);
                     if (flag == 1)
                     {

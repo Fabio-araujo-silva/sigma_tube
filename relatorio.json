@@ -1,0 +1,35 @@
+{
+  "alunos": [
+    {
+      "n_usp": 2,
+      "nome": "bruno",
+      "filmes_por_categoria": {
+        "categoria_0": 0,
+        "categoria_1": 0,
+        "categoria_2": 0,
+        "categoria_3": 0,
+        "categoria_4": 0,
+        "categoria_5": 0
+      }
+    },
+    {
+      "n_usp": 3,
+      "nome": "carlos",
+      "filmes_por_categoria": {
+        "categoria_0": 0,
+        "categoria_1": 0,
+        "categoria_2": 0,
+        "categoria_3": 0,
+        "categoria_4": 0,
+        "categoria_5": 0
+      }
+    }
+  ],
+  "filmes": [
+    {
+      "titulo": "shrek",
+      "categoria": 3,
+      "espectadores": 3
+    }
+  ]
+}

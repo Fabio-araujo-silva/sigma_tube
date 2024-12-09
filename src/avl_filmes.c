@@ -269,3 +269,87 @@ int adicionarVisualizacao(AvlFilme *arvore, char *titulo) {
     }
     return 0; // Filme não encontrado
 }
+
+void geraRelatorioTerminal(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes) {
+    printf("Relatório do Sistema:\n");
+    printf("=====================\n");
+    printf("Lista de Alunos:\n");
+
+    Aluno *alunoAtual = arvore_alunos->raiz;
+    while (alunoAtual != NULL) { // Iterar pelos alunos da árvore
+        printf("Nome: %s, N_USP: %d\n", alunoAtual->nome, alunoAtual->n_usp);
+        printf("Filmes assistidos por categoria:\n");
+        for (int i = 0; i < MAX_CATEGORIAS; i++) {
+            printf("  Categoria %d: %d filmes\n", i, alunoAtual->categorias[i]);
+        }
+        alunoAtual = alunoAtual->dir; // Supondo um método para iterar os nós
+    }
+
+    printf("\nLista de Filmes:\n");
+    NoFilmeAvl *filmeAtual = arvore_filmes->raiz;
+    while (filmeAtual != NULL) { // Iterar pelos filmes da árvore
+        printf("Título: %s, Categoria: %d, Espectadores: %d\n", 
+               filmeAtual->titulo, 
+               filmeAtual->categoria, 
+               *(filmeAtual->espectadores));
+        filmeAtual = filmeAtual->dir; // Supondo um método para iterar os nós
+    }
+}
+
+void geraRelatorioJSON(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes, const char *filename) {
+    FILE *file = fopen(filename, "w");
+    if (!file) {
+        printf("Erro ao criar o arquivo JSON.\n");
+        return;
+    }
+
+    fprintf(file, "{\n");
+
+    // Processar alunos
+    fprintf(file, "  \"alunos\": [\n");
+    Aluno *alunoAtual = arvore_alunos->raiz;
+    int primeiro = 1; // Controla a vírgula
+    while (alunoAtual != NULL) { // Iterar pelos alunos da árvore
+        if (!primeiro) {
+            fprintf(file, ",\n");
+        }
+        primeiro = 0;
+        fprintf(file, "    {\n");
+        fprintf(file, "      \"n_usp\": %d,\n", alunoAtual->n_usp);
+        fprintf(file, "      \"nome\": \"%s\",\n", alunoAtual->nome);
+        fprintf(file, "      \"filmes_por_categoria\": {\n");
+        for (int i = 0; i < MAX_CATEGORIAS; i++) {
+            fprintf(file, "        \"categoria_%d\": %d", i, alunoAtual->categorias[i]);
+            if (i < MAX_CATEGORIAS - 1) fprintf(file, ",");
+            fprintf(file, "\n");
+        }
+        fprintf(file, "      }\n");
+        fprintf(file, "    }");
+
+        alunoAtual = alunoAtual->dir; // Supondo um método para iterar os nós corretamente
+    }
+    fprintf(file, "\n  ],\n");
+
+    // Processar filmes
+    fprintf(file, "  \"filmes\": [\n");
+    NoFilmeAvl *filmeAtual = arvore_filmes->raiz;
+    primeiro = 1; // Reseta para filmes
+    while (filmeAtual != NULL) { // Iterar pelos filmes da árvore
+        if (!primeiro) {
+            fprintf(file, ",\n");
+        }
+        primeiro = 0;
+        fprintf(file, "    {\n");
+        fprintf(file, "      \"titulo\": \"%s\",\n", filmeAtual->titulo);
+        fprintf(file, "      \"categoria\": %d,\n", filmeAtual->categoria);
+        fprintf(file, "      \"espectadores\": %d\n", *(filmeAtual->espectadores));
+        fprintf(file, "    }");
+
+        filmeAtual = filmeAtual->dir; // Supondo um método para iterar os nós corretamente
+    }
+    fprintf(file, "\n  ]\n");
+
+    fprintf(file, "}\n");
+    fclose(file);
+    printf("Relatório JSON salvo em %s\n", filename);
+}

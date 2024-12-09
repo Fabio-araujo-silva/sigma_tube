@@ -1,3 +1,6 @@
+#ifndef AVL_ALUNOS_H
+#define AVL_ALUNOS_H
+
 #include "sigma_tube.h"
 
 // No para registro dos filmes em lista circular que será atributo de cada usuário
@@ -41,3 +44,5 @@ int adicionarFilmeAssistido(AvlAluno *arvore, int n_usp, char *nome_filme);
 int infosArvore();              // Exibe informações técnicas da ABB de alunos
 int retirarAluno();             // Apaga cadastro de um aluno
 */
+
+#endif
