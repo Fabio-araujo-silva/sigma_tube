@@ -197,10 +197,10 @@ int MainMenu(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
                 char nome[MAX_NOME];
                 scanf(" %[^\n]s", nome);
                 cadastraAluno(arvore_alunos, nome, &n_uspb);
-                printf("Ótimo! seu numero usp e: %d\n",n_uspb);
-                    printf("Insira os filmes ja assistidos por você: \n");
+                printf("Ótimo! seu numero usp e --> %d\n\n",n_uspb);
+                    printf("Deseja adicionar os filmes ja assistidos por você?\n");
                 do {
-                    printf("1 - Adicionar um filme\n2 - Sair\n");
+                    printf("1 - Adicionar um filme\n2 - Sair\n\n");
                     scanf("%d", &flag);
                     if (flag == 1)
                     {
@@ -234,6 +234,9 @@ int MainMenu(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
 
             case 3:
                 Adm(arvore_alunos, arvore_filmes);
+
+            case 4:
+                exit(0);
 
             default:
                 break;
