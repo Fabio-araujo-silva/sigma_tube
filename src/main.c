@@ -223,7 +223,6 @@ int MainMenu(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
                            //aumentar em 1 a visualização
                            adicionarFilmeAssistido(arvore_alunos, n_uspb, nomefilme); 
                            cadastraFilme(arvore_filmes, nomefilme, categoria - 1);
-                           printf("Adicionado!\n");
                         }
                         else
                         {
