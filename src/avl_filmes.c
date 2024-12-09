@@ -192,14 +192,16 @@ int listaFilme(NoFilmeAvl *p)
     return 1;
 }
 
-// Busca filme a partir de seu nome e verifica se foi assistido, retornando inteiro correspondente
 int buscaFilme(NoFilmeAvl *p, char *titulo, int *assistido)
 {
     if (p == NULL)
     {
-        assistido = 0;
-        return 0;
+        if (assistido != NULL) {
+            *assistido = 0; // Filme não encontrado, nenhum espectador
+        }
+        return 0; // Filme não encontrado
     }
+    
     if (strcmp(titulo, p->titulo) < 0)
     {
         return buscaFilme(p->esq, titulo, assistido);
@@ -210,7 +212,9 @@ int buscaFilme(NoFilmeAvl *p, char *titulo, int *assistido)
     }
     else
     {
-        *assistido = *(p->espectadores);
-        return 1;
+        if (assistido != NULL) {
+            *assistido = *(p->espectadores); // Atualiza o número de espectadores
+        }
+        return 1; // Filme encontrado
     }
 }

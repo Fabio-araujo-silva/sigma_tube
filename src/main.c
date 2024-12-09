@@ -207,23 +207,24 @@ int MainMenu(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
                         printf("Nome do filme %d: ",count);
                         scanf(" %[^\n]s", nomefilme);
 
-                        printf("Categoria do filme %d: \n",count);
-                        printf("1 - Romance\n");
-                        printf("2 - Comedia\n");
-                        printf("3 - Drama\n");
-                        printf("4 - Terror\n");
-                        printf("5 - Ficcao\n");
-                        printf("6 - Acao\n");
-                        scanf("%d", &categoria);
-
                         if (buscaFilme(arvore_filmes->raiz, nomefilme, 0) == 0)
                         {
+                            printf("Categoria do filme %d: \n",count);
+                            printf("1 - Romance\n");
+                            printf("2 - Comedia\n");
+                            printf("3 - Drama\n");
+                            printf("4 - Terror\n");
+                            printf("5 - Ficcao\n");
+                            printf("6 - Acao\n");
+                            scanf("%d", &categoria);
                            //aumentar em 1 a visualização
                            adicionarFilmeAssistido(arvore_alunos, n_uspb, nomefilme); 
                            cadastraFilme(arvore_filmes, nomefilme, categoria - 1);
+                           printf("Adicionado!\n");
                         }
                         else
                         {
+                            printf("Adicionado!\n");
                             //aumentar visualização
                         }
                         count++;
