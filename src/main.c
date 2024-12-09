@@ -1,10 +1,10 @@
-#include "../include/avl_alunos.h"
+/*#include "../include/avl_alunos.h"
 #include "../include/avl_filmes.h"
-#include "../include/sigma_tube.h"
-/*
+#include "../include/sigma_tube.h"*/
+
 #include "..\include\avl_alunos.h"
 #include "..\include\avl_filmes.h"
-#include "..\include\sigma_tube.h"*/
+#include "..\include\sigma_tube.h"
 
 int Adm(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes);
 int Usuario(int n_usp, AvlAluno *arvore_alunos, AvlFilme *arvore_filmes);
@@ -85,14 +85,15 @@ int Adm(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
                 case 10:
                     geraRelatorio();
                     break;
-
-                case 11:
-                    infosArvore();
-                    break;
                 */
+                
                 case 5:
                     geraRelatorioTerminal(arvore_alunos, arvore_filmes);
                     geraRelatorioJSON(arvore_alunos, arvore_filmes, "relatorio.json");
+                    break;
+
+                case 6:
+                    infosArvoreAluno(arvore_alunos);
                     break;
 
                 case 7:
