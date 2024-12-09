@@ -1,5 +1,8 @@
 #include "../include/avl_filmes.h"
 
+void escreveFilmesJSON(FILE *file, NoFilmeAvl *no, int *primeiro);
+void escreveAlunosJSON(FILE *file, Aluno *no, int *primeiro);
+
 AvlFilme *Criar_Arvore_Filme() {
     AvlFilme *arvore_filmes = (AvlFilme *)malloc(sizeof(AvlFilme));
 
@@ -296,6 +299,56 @@ void geraRelatorioTerminal(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes) {
     }
 }
 
+void escreveAlunosJSON(FILE *file, Aluno *no, int *primeiro) {
+    if (no == NULL) return;
+
+    // Percorre a subárvore esquerda
+    escreveAlunosJSON(file, no->esq, primeiro);
+
+    // Escreve o nó atual
+    if (!*primeiro) {
+        fprintf(file, ",\n");
+    }
+    *primeiro = 0;
+
+    fprintf(file, "    {\n");
+    fprintf(file, "      \"n_usp\": %d,\n", no->n_usp);
+    fprintf(file, "      \"nome\": \"%s\",\n", no->nome);
+    fprintf(file, "      \"filmes_por_categoria\": {\n");
+    for (int i = 0; i < MAX_CATEGORIAS; i++) {
+        fprintf(file, "        \"categoria_%d\": %d", i, no->categorias[i]);
+        if (i < MAX_CATEGORIAS - 1) fprintf(file, ",");
+        fprintf(file, "\n");
+    }
+    fprintf(file, "      }\n");
+    fprintf(file, "    }");
+
+    // Percorre a subárvore direita
+    escreveAlunosJSON(file, no->dir, primeiro);
+}
+
+void escreveFilmesJSON(FILE *file, NoFilmeAvl *no, int *primeiro) {
+    if (no == NULL) return;
+
+    // Percorre a subárvore esquerda
+    escreveFilmesJSON(file, no->esq, primeiro);
+
+    // Escreve o nó atual
+    if (!*primeiro) {
+        fprintf(file, ",\n");
+    }
+    *primeiro = 0;
+
+    fprintf(file, "    {\n");
+    fprintf(file, "      \"titulo\": \"%s\",\n", no->titulo);
+    fprintf(file, "      \"categoria\": %d,\n", no->categoria);
+    fprintf(file, "      \"espectadores\": %d\n", *(no->espectadores));
+    fprintf(file, "    }");
+
+    // Percorre a subárvore direita
+    escreveFilmesJSON(file, no->dir, primeiro);
+}
+
 void geraRelatorioJSON(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes, const char *filename) {
     FILE *file = fopen(filename, "w");
     if (!file) {
@@ -307,46 +360,14 @@ void geraRelatorioJSON(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes, const c
 
     // Processar alunos
     fprintf(file, "  \"alunos\": [\n");
-    Aluno *alunoAtual = arvore_alunos->raiz;
-    int primeiro = 1; // Controla a vírgula
-    while (alunoAtual != NULL) { // Iterar pelos alunos da árvore
-        if (!primeiro) {
-            fprintf(file, ",\n");
-        }
-        primeiro = 0;
-        fprintf(file, "    {\n");
-        fprintf(file, "      \"n_usp\": %d,\n", alunoAtual->n_usp);
-        fprintf(file, "      \"nome\": \"%s\",\n", alunoAtual->nome);
-        fprintf(file, "      \"filmes_por_categoria\": {\n");
-        for (int i = 0; i < MAX_CATEGORIAS; i++) {
-            fprintf(file, "        \"categoria_%d\": %d", i, alunoAtual->categorias[i]);
-            if (i < MAX_CATEGORIAS - 1) fprintf(file, ",");
-            fprintf(file, "\n");
-        }
-        fprintf(file, "      }\n");
-        fprintf(file, "    }");
-
-        alunoAtual = alunoAtual->dir; // Supondo um método para iterar os nós corretamente
-    }
+    int primeiro = 1; // Controle de vírgulas
+    escreveAlunosJSON(file, arvore_alunos->raiz, &primeiro);
     fprintf(file, "\n  ],\n");
 
     // Processar filmes
     fprintf(file, "  \"filmes\": [\n");
-    NoFilmeAvl *filmeAtual = arvore_filmes->raiz;
-    primeiro = 1; // Reseta para filmes
-    while (filmeAtual != NULL) { // Iterar pelos filmes da árvore
-        if (!primeiro) {
-            fprintf(file, ",\n");
-        }
-        primeiro = 0;
-        fprintf(file, "    {\n");
-        fprintf(file, "      \"titulo\": \"%s\",\n", filmeAtual->titulo);
-        fprintf(file, "      \"categoria\": %d,\n", filmeAtual->categoria);
-        fprintf(file, "      \"espectadores\": %d\n", *(filmeAtual->espectadores));
-        fprintf(file, "    }");
-
-        filmeAtual = filmeAtual->dir; // Supondo um método para iterar os nós corretamente
-    }
+    primeiro = 1; // Reseta controle para filmes
+    escreveFilmesJSON(file, arvore_filmes->raiz, &primeiro);
     fprintf(file, "\n  ]\n");
 
     fprintf(file, "}\n");
