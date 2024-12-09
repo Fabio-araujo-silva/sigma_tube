@@ -257,19 +257,19 @@ int removerAluno(Aluno **p, int usp, int *mudou_h) {
     return 0; // caso não encontrado ou não removido
 }
 
-int cadastraAluno(AvlAluno *arvore, char *nome)
-{
-    int cresceu = 0;
-    return aux_inserir_aluno(&arvore->raiz, nome, &cresceu);
-}
-
-int aux_inserir_aluno(Aluno **raiz, char *nome, int *cresceu)
-{
-    if (*raiz == NULL)
+    int cadastraAluno(AvlAluno *arvore, char *nome, int *n_usp_result)
     {
+        int cresceu = 0;
+        return aux_inserir_aluno(&arvore->raiz, nome, &cresceu, n_usp_result);
+    }
+
+
+    int aux_inserir_aluno(Aluno **raiz, char *nome, int *cresceu, int *n_usp_result) {
+    if (*raiz == NULL) {
         Aluno *novo = (Aluno *)malloc(sizeof(Aluno));
-        if (novo == NULL)
-            return 1; // Erro de alocação
+        if (novo == NULL) {
+            return -1; // Erro de alocação: agora retorne um valor negativo para indicar falha
+        }
 
         usp_counter++;
         novo->n_usp = usp_counter; // autoincrementa o n_usp
@@ -278,8 +278,7 @@ int aux_inserir_aluno(Aluno **raiz, char *nome, int *cresceu)
         novo->iniFav = NULL;
 
         // Inicializa preferencia com zero
-        for (int i = 0; i < MAX_CATEGORIAS; i++)
-        {
+        for (int i = 0; i < MAX_CATEGORIAS; i++) {
             novo->categorias[i] = 0;
         }
 
@@ -288,71 +287,71 @@ int aux_inserir_aluno(Aluno **raiz, char *nome, int *cresceu)
 
         *raiz = novo;
         *cresceu = 1;
-        return 0; // Sucesso
+
+        // Aqui retornamos o n_usp via parâmetro
+        if (n_usp_result != NULL) {
+            *n_usp_result = novo->n_usp;
+        }
+
+        return novo->n_usp; // Sucesso agora retorna o n_usp
     }
 
-    // Comparação alfabética
-    if (strcmp(nome, (*raiz)->nome) > 0)
-    {
+    int ret;
+    if (strcmp(nome, (*raiz)->nome) > 0) {
         // Inserir à direita
-        int ret = aux_inserir_aluno(&(*raiz)->dir, nome, cresceu);
-        if (ret != 0)
+        ret = aux_inserir_aluno(&(*raiz)->dir, nome, cresceu, n_usp_result);
+        if (ret < 0) // Se retornou negativo, houve erro
             return ret;
 
-        if (*cresceu)
-        {
-            switch ((*raiz)->fb)
-            {
-            case -1:
-                (*raiz)->fb = 0;
-                *cresceu = 0;
-                break;
-            case 0:
-                (*raiz)->fb = 1;
-                *cresceu = 1;
-                break;
-            case 1:
-                if ((*raiz)->dir->fb == 1)
-                    DD_a(raiz); // Rotação à direita
-                else
-                    DE_a(raiz); // Rotação direita-esquerda
-                *cresceu = 0;
-                break;
+        if (*cresceu) {
+            switch ((*raiz)->fb) {
+                case -1:
+                    (*raiz)->fb = 0;
+                    *cresceu = 0;
+                    break;
+                case 0:
+                    (*raiz)->fb = 1;
+                    *cresceu = 1;
+                    break;
+                case 1:
+                    if ((*raiz)->dir->fb == 1)
+                        DD_a(raiz); // Rotação à direita
+                    else
+                        DE_a(raiz); // Rotação direita-esquerda
+                    *cresceu = 0;
+                    break;
             }
         }
         return ret;
-    }
-    else
-    {
+    } else {
         // Inserir à esquerda
-        int ret = aux_inserir_aluno(&(*raiz)->esq, nome, cresceu);
-        if (ret != 0)
+        ret = aux_inserir_aluno(&(*raiz)->esq, nome, cresceu, n_usp_result);
+        if (ret < 0) // Se retornou negativo, houve erro
             return ret;
 
-        if (*cresceu)
-        {
-            switch ((*raiz)->fb)
-            {
-            case 1:
-                (*raiz)->fb = 0;
-                *cresceu = 0;
-                break;
-            case 0:
-                (*raiz)->fb = -1;
-                *cresceu = 1;
-                break;
-            case -1:
-                if ((*raiz)->esq->fb == -1)
-                    EE_a(raiz); // Rotação à esquerda
-                else
-                    ED_a(raiz); // Rotação esquerda-direita
-                *cresceu = 0;
-                break;
+        if (*cresceu) {
+            switch ((*raiz)->fb) {
+                case 1:
+                    (*raiz)->fb = 0;
+                    *cresceu = 0;
+                    break;
+                case 0:
+                    (*raiz)->fb = -1;
+                    *cresceu = 1;
+                    break;
+                case -1:
+                    if ((*raiz)->esq->fb == -1)
+                        EE_a(raiz); // Rotação à esquerda
+                    else
+                        ED_a(raiz); // Rotação esquerda-direita
+                    *cresceu = 0;
+                    break;
             }
         }
         return ret;
     }
 }
+
 
 
 Aluno *buscaAluno(Aluno *p, int n_usp)
@@ -465,4 +464,39 @@ Aluno *recomendaDivergente(Aluno *p, int n_usp) {
     EncontrarMaisDistante(p, X, &mais_distante, &melhor_metrica);
 
     return (mais_distante);
+}
+
+int adicionarFilmeAssistido(AvlAluno *arvore, int n_usp, char *nome_filme) {
+    // Busca o aluno a partir do n_usp
+    Aluno *aluno = buscaAluno(arvore->raiz, n_usp);
+    if (aluno == NULL) {
+        // Aluno não encontrado
+        return -1;
+    }
+    
+    // Cria um novo nó de filme
+    NoFilmeLinear *novo = (NoFilmeLinear*) malloc(sizeof(NoFilmeLinear));
+    if (novo == NULL) {
+        // Falha na alocação
+        return -2;
+    }
+    strcpy(novo->titulo, nome_filme);
+
+    // Caso a lista de filmes assistidos esteja vazia
+    if (aluno->iniAssistidos == NULL) {
+        // Lista circular de um único elemento
+        novo->prox = novo;
+        aluno->iniAssistidos = novo;
+    } else {
+        // Insere no final da lista circular
+        NoFilmeLinear *aux = aluno->iniAssistidos;
+        while (aux->prox != aluno->iniAssistidos) {
+            aux = aux->prox;
+        }
+        // Agora aux é o último nó da lista
+        novo->prox = aluno->iniAssistidos;
+        aux->prox = novo;
+    }
+
+    return 0; // Sucesso
 }

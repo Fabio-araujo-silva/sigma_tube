@@ -163,7 +163,8 @@ int Usuario(int n_usp, AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
 
 int MainMenu(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
 {
-    int modo, n_usp, flag, count;
+    int modo, n_usp, flag, count, categoria;
+    int *n_uspb;
     printf("Selecione a opção desejada:\n");
 
     do {
@@ -196,7 +197,7 @@ int MainMenu(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
                 printf("Insira o nome do aluno: ");
                 char nome[MAX_NOME];
                 scanf(" %[^\n]s", nome);
-                cadastraAluno(arvore_alunos, nome);
+                cadastraAluno(arvore_alunos, nome, &n_uspb);
                     printf("Insira os filmes ja assistidos por você: \n");
                 do {
                     printf("1 - Adicionar um filme\n2 - Sair");
@@ -205,15 +206,29 @@ int MainMenu(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
                     {
                         printf("Nome do filme %d: ",count);
                         scanf(" %[^\n]s", nomefilme);
-                        if (buscaFilme(arvore_filmes, nomefilme, 0) == 1)
+
+                        printf("Categoria do filme %d: \n",count);
+                        printf("1 - Romance\n");
+                        printf("2 - Comedia\n");
+                        printf("3 - Drama\n");
+                        printf("4 - Terror\n");
+                        printf("5 - Ficcao\n");
+                        printf("6 - Acao\n");
+                        scanf("%d", categoria);
+
+                        if (buscaFilme(arvore_filmes, nomefilme, 0) == 0)
                         {
                            //aumentar em 1 a visualização
-                           buscaAluno(arvore_alunos, ) 
+                           adicionarFilmeAssistido(arvore_alunos, n_usp, *nomefilme); 
+                           cadastraFilme(arvore_filmes, nomefilme, categoria - 1);
+                        }
+                        else
+                        {
+                            //aumentar visualização
                         }
                         count++;
                     }
-                } while (flag != 2)
-
+                } while (flag != 2);
                 break;
 
             case 3:

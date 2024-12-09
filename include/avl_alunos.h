@@ -24,8 +24,8 @@ typedef struct avlAluno
 } AvlAluno;
 
 AvlAluno *Criar_Arvore_Aluno();
-int aux_inserir_aluno(Aluno **raiz, char *nome, int *cresceu);
-int cadastraAluno(AvlAluno *arvore, char *nome); // Cadastra um aluno no sistema
+int aux_inserir_aluno(Aluno **raiz, char *nome, int *cresceu, int *n_usp_result);
+int cadastraAluno(AvlAluno *arvore, char *nome, int *n_usp_result); // Cadastra um aluno no sistema
 Aluno *buscaAluno(Aluno *p, int usp);            // Busca um aluno no sistema a partir do seu nome
 int altura(Aluno *p);
 Aluno* predecessor(Aluno *u);
@@ -35,7 +35,9 @@ float Metrica(Aluno *X, Aluno *Y);
 void EncontrarMaisProximo(Aluno *p, Aluno *X, Aluno **mais_proximo, float *melhor_metrica);
 Aluno *recomendaConvergente(Aluno *p, int n_usp);
 void EncontrarMaisDistante(Aluno *p, Aluno *X, Aluno **mais_distante, float *melhor_metrica);
-Aluno *recomendaDivergente(Aluno *p, int n_usp);/*
+Aluno *recomendaDivergente(Aluno *p, int n_usp);
+int adicionarFilmeAssistido(AvlAluno *arvore, int n_usp, char *nome_filme);
+/*
 int infosArvore();              // Exibe informações técnicas da ABB de alunos
 int retirarAluno();             // Apaga cadastro de um aluno
 */
