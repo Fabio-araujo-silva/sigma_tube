@@ -1,4 +1,3 @@
-//#include ".\include\avl_alunos.h"
 #include "../include/avl_alunos.h"
 
 int usp_counter = 0;

@@ -6,7 +6,6 @@ int Adm(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes);
 int Usuario(int n_usp, AvlAluno *arvore_alunos, AvlFilme *arvore_filmes);
 int MainMenu(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes);
 
-
 int main()
 {
     int n_usp;
@@ -27,11 +26,11 @@ int Adm(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
     int modo, n_usp;
     Aluno *aluno;
 
-    printf("=========================================\n");
     printf("Selecione a opção desejada:\n");
         
         do
         {
+            printf("=========================================\n");
             printf("1 - Listar alunos\n");                                // Lista todos os alunos cadastrados no sistema
             printf("2 - Buscar um aluno\n");                              // Busca um aluno no sistema a partir do seu nome verificando se está cadastrado
             printf("3 - Remover um aluno\n");                             // Remove um aluno do sistema
@@ -102,9 +101,10 @@ int Usuario(int n_usp, AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
     Aluno *colega;
 
     printf("=========================================\n");
-    printf("Selecione a opção desejada:\n");
+    printf("Logado como: %s \nSelecione a opção desejada:\n", buscaAluno(arvore_alunos->raiz, n_usp)->nome);
 
     do {
+        printf("=========================================\n");
         printf("1 - Buscar um filme\n");                              // Busca um filme no sistema a partir do seu nome verificando se foi assistido
         printf("2 - Encontrar colega com gostos similares\n");        // Encontra um amigo com gostos similares a partir de um aluno
         printf("3 - Encontrar colega com gostos diferentes\n");       // Encontra um amigo com gostos diferentes a partir de um aluno
@@ -164,10 +164,11 @@ int Usuario(int n_usp, AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
 int MainMenu(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
 {
     int modo, n_usp;
-    printf("=========================================\n");
     printf("Selecione a opção desejada:\n");
 
     do {
+
+        printf("=========================================\n");
         printf("Escolha uma opcao:\n");
         printf("1 - Login\n");
         printf("2 - Cadastrar Aluno\n");

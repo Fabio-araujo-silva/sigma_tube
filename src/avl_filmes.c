@@ -1,4 +1,3 @@
-//#include ".\include\avl_filmes.h"
 #include "../include/avl_filmes.h"
 
 AvlFilme *Criar_Arvore_Filme() {
