@@ -1,4 +1,7 @@
-#include "../include/avl_filmes.h"
+//#include "../include/avl_filmes.h"
+
+#include "..\include\avl_filmes.h"
+
 
 void escreveFilmesJSON(FILE *file, NoFilmeAvl *no, int *primeiro);
 void escreveAlunosJSON(FILE *file, Aluno *no, int *primeiro);
@@ -271,6 +274,59 @@ int adicionarVisualizacao(AvlFilme *arvore, char *titulo) {
         }
     }
     return 0; // Filme não encontrado
+}
+
+// Função auxiliar para percorrer a árvore e coletar filmes e visualizações
+void coletarFilmes(NoFilmeAvl *raiz, NoFilmeAvl **filmes, int *contador) {
+    if (raiz == NULL) {
+        return;
+    }
+
+    // Adiciona o filme atual ao vetor de filmes
+    filmes[*contador] = raiz;
+    (*contador)++;
+
+    // Recurssão nas subárvores
+    coletarFilmes(raiz->esq, filmes, contador);
+    coletarFilmes(raiz->dir, filmes, contador);
+}
+
+// Função para ordenar os filmes com base no número de espectadores (Selection Sort)
+void ordenarFilmes(NoFilmeAvl **filmes, int contador) {
+    for (int i = 0; i < contador - 1; i++) {
+        int max_idx = i;
+        for (int j = i + 1; j < contador; j++) {
+            if (*(filmes[j]->espectadores) > *(filmes[max_idx]->espectadores)) {
+                max_idx = j;
+            }
+        }
+        // Troca os filmes
+        if (max_idx != i) {
+            NoFilmeAvl *temp = filmes[i];
+            filmes[i] = filmes[max_idx];
+            filmes[max_idx] = temp;
+        }
+    }
+}
+
+// Função para exibir os 10 filmes mais populares
+int top10doMomento(NoFilmeAvl *raiz) {
+    NoFilmeAvl *filmes[1000];  // Vetor para armazenar os filmes (ajustar o tamanho conforme necessário)
+    int contador = 0;
+
+    // Coleta todos os filmes da árvore
+    coletarFilmes(raiz, filmes, &contador);
+
+    // Ordena os filmes com base no número de espectadores (usando Selection Sort)
+    ordenarFilmes(filmes, contador);
+
+    // Exibe os 10 primeiros filmes ou todos os filmes se houver menos que 10
+    printf("Top 10 Filmes mais Populares:\n");
+    for (int i = 0; i < 10 && i < contador; i++) {
+        printf("Titulo: %s, Espectadores: %d\n", filmes[i]->titulo, *(filmes[i]->espectadores));
+    }
+
+    return 1;
 }
 
 void geraRelatorioTerminal(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes) {

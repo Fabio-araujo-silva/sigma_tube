@@ -1,11 +1,16 @@
-#include "../include/avl_alunos.h"
+/*#include "../include/avl_alunos.h"
 #include "../include/avl_filmes.h"
-#include "../include/sigma_tube.h"
+#include "../include/sigma_tube.h"*/
+
+#include "..\include\avl_alunos.h"
+#include "..\include\avl_filmes.h"
+#include "..\include\sigma_tube.h"
 
 int Adm(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes);
 int Usuario(int n_usp, AvlAluno *arvore_alunos, AvlFilme *arvore_filmes);
 int MainMenu(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes);
 
+// Função principal, chama o menu principal
 int main()
 {
     int n_usp;
@@ -21,6 +26,7 @@ int main()
     return 0;
 }
 
+// Função de menu para o administrador
 int Adm(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
 { 
     int modo, n_usp;
@@ -100,6 +106,7 @@ int Adm(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
         } while (modo != 7);            
 }
 
+// Função de menu para o usuário
 int Usuario(int n_usp, AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
 {
     int modo, flag, categoria, n_uspb;
@@ -155,7 +162,7 @@ int Usuario(int n_usp, AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
                 break;
 
             case 4:
-                /*top10doMomento();*/
+                top10doMomento(arvore_filmes->raiz);
                 break;
             
             case 5:                    
@@ -192,6 +199,7 @@ int Usuario(int n_usp, AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
         } while (modo != 6);
 }
 
+// Função de menu principal
 int MainMenu(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
 {
     int modo, n_usp, flag, count, categoria, n_uspb;
