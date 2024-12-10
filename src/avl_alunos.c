@@ -298,7 +298,7 @@ int removerAluno(Aluno **p, int usp, int *mudou_h) {
     }
 
     int ret;
-    if (strcmp(nome, (*raiz)->nome) > 0) {
+    if (n_usp_result - (*raiz)->n_usp > 0) {
         // Inserir à direita
         ret = aux_inserir_aluno(&(*raiz)->dir, nome, cresceu, n_usp_result);
         if (ret < 0) // Se retornou negativo, houve erro
