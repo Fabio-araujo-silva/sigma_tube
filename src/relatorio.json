@@ -1,8 +1,40 @@
 {
   "alunos": [
-
+    {
+      "n_usp": 1,
+      "nome": "ana",
+      "filmes_por_categoria": {
+        "Romance": 1,
+        "Comédia": 0,
+        "Drama": 0,
+        "Terror": 0,
+        "Ficção": 0,
+        "Ação": 0
+      }
+    },
+    {
+      "n_usp": 2,
+      "nome": "bruno",
+      "filmes_por_categoria": {
+        "Romance": 2,
+        "Comédia": 0,
+        "Drama": 1,
+        "Terror": 0,
+        "Ficção": 0,
+        "Ação": 0
+      }
+    }
   ],
   "filmes": [
-
+    {
+      "titulo": "dark",
+      "categoria": "Drama",
+      "espectadores": 1
+    },
+    {
+      "titulo": "shrek",
+      "categoria": "Romance",
+      "espectadores": 3
+    }
   ]
 }

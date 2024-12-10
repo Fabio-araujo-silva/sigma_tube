@@ -27,8 +27,8 @@ int adicionarVisualizacao(AvlFilme *arvore, char *titulo);
 void geraRelatorioJSON(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes, const char *filename);
 void geraRelatorioTerminal(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes);
 
-// adicionais
-int top10doMomento(); // Exibe os 10 filmes mais populares do momento
+int obterCategoriaFilme(NoFilmeAvl *raiz, char *titulo);
+// Exibe os 10 filmes mais populares do momento
 /*
 int adicionaFilmeFavorito();
 int imprimeFilmesFavorito();*/

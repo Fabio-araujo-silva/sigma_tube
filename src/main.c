@@ -188,6 +188,7 @@ int Usuario(int n_usp, AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
                         {
                             if (adicionarVisualizacao(arvore_filmes, nomefilme))
                            {
+                                categoria = obterCategoriaFilme(arvore_filmes->raiz, nomefilme);
                                 printf("Visualização adicionada com sucesso!\n");
                                 adicionarFilmeAssistido(arvore_alunos, n_usp, nomefilme, categoria);
                            }

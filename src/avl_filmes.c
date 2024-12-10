@@ -475,3 +475,17 @@ void escreveFilmesTerminal(NoFilmeAvl *no) {
     escreveFilmesTerminal(no->dir);
 }
 
+int obterCategoriaFilme(NoFilmeAvl *raiz, char *titulo) {
+    if (raiz == NULL) {
+        return -1; // Filme não encontrado
+    }
+
+    int cmp = strcmp(titulo, raiz->titulo);
+    if (cmp == 0) {
+        return raiz->categoria + 1; // Retorna a categoria do filme encontrado
+    } else if (cmp < 0) {
+        return obterCategoriaFilme(raiz->esq, titulo); // Busca na subárvore esquerda
+    } else {
+        return obterCategoriaFilme(raiz->dir, titulo); // Busca na subárvore direita
+    }
+}
