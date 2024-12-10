@@ -459,7 +459,7 @@ void EncontrarMaisDistante(Aluno *p, Aluno *X, Aluno **mais_distante, float *mel
     // Calcular a métrica para o aluno atual, se for diferente de X
     if (p != X) { // Comparação por endereço para evitar o próprio aluno
         float metrica_atual = Metrica(X, p);
-        if (metrica_atual < *melhor_metrica) {
+        if (p != X && (metrica_atual > 0 && metrica_atual < *melhor_metrica)) {
             *melhor_metrica = metrica_atual;
             *mais_distante = p;
         }
@@ -467,7 +467,7 @@ void EncontrarMaisDistante(Aluno *p, Aluno *X, Aluno **mais_distante, float *mel
 
     // Percorrer subárvore esquerda e direita
     EncontrarMaisProximo(p->esq, X, mais_distante, melhor_metrica);
-    EncontrarMaisProximo(p->dir, X, mais_distante, melhor_metrica);
+    EncontrarMaisDistante(p->dir, X, mais_distante, melhor_metrica);
 }
 
 // Função principal de recomendação de mais distante
