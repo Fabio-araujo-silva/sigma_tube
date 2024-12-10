@@ -28,8 +28,7 @@ typedef struct avlAluno
 
 AvlAluno *Criar_Arvore_Aluno();
 int aux_inserir_aluno(Aluno **raiz, char *nome, int *cresceu, int *n_usp_result);
-int cadastraAluno(AvlAluno *arvore, char *nome, int *n_usp_result); // Cadastra um aluno no sistema
-Aluno *buscaAluno(Aluno *p, int usp);            // Busca um aluno no sistema a partir do seu nome
+int cadastraAluno(AvlAluno *arvore, char *nome, int *n_usp_result); // Cadastra um aluno no sistema            // Busca um aluno no sistema a partir do seu nome
 int altura(Aluno *p);
 Aluno* predecessor(Aluno *u);
 int removerAluno(Aluno **p, int usp, int *mudou_h);
@@ -45,7 +44,6 @@ void infosArvoreAluno(AvlAluno *arvore);
 int calcularMaiorDiferencaAltura(AvlAluno *arvore);
 int maiorGrau(Aluno *raiz);
 int contarNos(Aluno *raiz);
-
 /*
 int infosArvore();              // Exibe informações técnicas da ABB de alunos
 int retirarAluno();             // Apaga cadastro de um aluno

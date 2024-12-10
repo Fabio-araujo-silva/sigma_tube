@@ -203,7 +203,7 @@ int Usuario(int n_usp, AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
 // Função de menu principal
 int MainMenu(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
 {
-    int modo, n_usp, flag, count, categoria, n_uspb;
+    int modo, n_usp, flag, count, categoria;
     printf("Selecione a opção desejada:\n");
 
     do {
@@ -231,6 +231,8 @@ int MainMenu(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
                 break;
 
             case 2:
+                int n_uspb;
+                n_uspb = 0;
                 count = 1;
                 char nomefilme[MAX_TITULO];
                 printf("Insira o nome do aluno: ");
