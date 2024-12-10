@@ -183,6 +183,18 @@ int Usuario(int n_usp, AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
                            if (adicionarVisualizacao(arvore_filmes, nomefilme))
                                 printf("Visualização adicionada com sucesso!\n");
                         }
+                        else
+                        {
+                            if (adicionarVisualizacao(arvore_filmes, nomefilme))
+                           {
+                                printf("Visualização adicionada com sucesso!\n");
+                                adicionarFilmeAssistido(arvore_alunos, n_uspb, nomefilme, categoria);
+                           }
+                           else
+                           {
+                                printf("Filme não encontrado.\n");
+                           }
+                        }
                 break;
 
             case 6:
@@ -267,6 +279,7 @@ int MainMenu(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
                             if (adicionarVisualizacao(arvore_filmes, nomefilme))
                            {
                                 printf("Visualização adicionada com sucesso!\n");
+                                adicionarFilmeAssistido(arvore_alunos, n_uspb, nomefilme, categoria);
                            }
                            else
                            {

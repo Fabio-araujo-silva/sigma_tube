@@ -2,7 +2,19 @@
   "alunos": [
     {
       "n_usp": 1,
-      "nome": "bruno",
+      "nome": "vini",
+      "filmes_por_categoria": {
+        "Romance": 1,
+        "Comédia": 0,
+        "Drama": 0,
+        "Terror": 1,
+        "Ficção": 0,
+        "Ação": 0
+      }
+    },
+    {
+      "n_usp": 2,
+      "nome": "ana",
       "filmes_por_categoria": {
         "Romance": 0,
         "Comédia": 0,
@@ -13,8 +25,8 @@
       }
     },
     {
-      "n_usp": 2,
-      "nome": "ana",
+      "n_usp": 3,
+      "nome": "julho",
       "filmes_por_categoria": {
         "Romance": 1,
         "Comédia": 0,
@@ -25,8 +37,8 @@
       }
     },
     {
-      "n_usp": 3,
-      "nome": "carlos",
+      "n_usp": 4,
+      "nome": "daniil",
       "filmes_por_categoria": {
         "Romance": 0,
         "Comédia": 1,
@@ -39,13 +51,23 @@
   ],
   "filmes": [
     {
-      "titulo": "madagascar 8",
+      "titulo": "chest 2",
       "categoria": "Romance",
       "espectadores": 1
     },
     {
-      "titulo": "shrek",
+      "titulo": "chest o filme",
       "categoria": "Comédia",
+      "espectadores": 1
+    },
+    {
+      "titulo": "shrek",
+      "categoria": "Terror",
+      "espectadores": 2
+    },
+    {
+      "titulo": "shrek3",
+      "categoria": "Romance",
       "espectadores": 1
     }
   ]
