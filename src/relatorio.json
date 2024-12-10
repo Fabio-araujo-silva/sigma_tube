@@ -2,39 +2,51 @@
   "alunos": [
     {
       "n_usp": 1,
-      "nome": "ana",
+      "nome": "a",
       "filmes_por_categoria": {
         "Romance": 1,
         "Comédia": 0,
         "Drama": 0,
-        "Terror": 0,
+        "Terror": 1,
         "Ficção": 0,
         "Ação": 0
-      }
+      },
+      "filmes_assistidos": [
+        "a",
+        "shrek"
+      ]
     },
     {
       "n_usp": 2,
-      "nome": "bruno",
+      "nome": "fubin",
       "filmes_por_categoria": {
-        "Romance": 2,
-        "Comédia": 0,
-        "Drama": 1,
+        "Romance": 0,
+        "Comédia": 1,
+        "Drama": 0,
         "Terror": 0,
         "Ficção": 0,
         "Ação": 0
-      }
+      },
+      "filmes_assistidos": [
+        "shrek 7"
+      ]
     }
   ],
   "filmes": [
     {
-      "titulo": "dark",
-      "categoria": "Drama",
+      "titulo": "a",
+      "categoria": "Romance",
       "espectadores": 1
     },
     {
       "titulo": "shrek",
-      "categoria": "Romance",
-      "espectadores": 3
+      "categoria": "Terror",
+      "espectadores": 1
+    },
+    {
+      "titulo": "shrek 7",
+      "categoria": "Comédia",
+      "espectadores": 1
     }
   ]
 }

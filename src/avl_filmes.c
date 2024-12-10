@@ -366,6 +366,7 @@ void geraRelatorioTerminal(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes) {
 }
 
 void escreveAlunosJSON(FILE *file, Aluno *no, int *primeiro) {
+// Atualizando escreveAlunosJSON para incluir a lista de filmes assistidos void escreveAlunosJSON(FILE *file, Aluno *no, int *primeiro) {
     if (no == NULL) return;
 
     // Percorre a subárvore esquerda
@@ -380,13 +381,28 @@ void escreveAlunosJSON(FILE *file, Aluno *no, int *primeiro) {
     fprintf(file, "    {\n");
     fprintf(file, "      \"n_usp\": %d,\n", no->n_usp);
     fprintf(file, "      \"nome\": \"%s\",\n", no->nome);
+
+    // Filmes por categoria
     fprintf(file, "      \"filmes_por_categoria\": {\n");
     for (int i = 0; i < MAX_CATEGORIAS; i++) {
         fprintf(file, "        \"%s\": %d", NOMES_CATEGORIAS[i], no->categorias[i]);
         if (i < MAX_CATEGORIAS - 1) fprintf(file, ",");
         fprintf(file, "\n");
     }
-    fprintf(file, "      }\n");
+    fprintf(file, "      },\n");
+
+    // Lista de filmes assistidos
+    fprintf(file, "      \"filmes_assistidos\": [\n");
+    NoFilmeLinear *atual = no->iniAssistidos;
+    if (atual != NULL) {
+        do {
+            fprintf(file, "        \"%s\"", atual->titulo);
+            atual = atual->prox;
+            if (atual != no->iniAssistidos) fprintf(file, ",\n");
+        } while (atual != no->iniAssistidos);
+    }
+    fprintf(file, "\n      ]\n");
+
     fprintf(file, "    }");
 
     // Percorre a subárvore direita
@@ -442,6 +458,7 @@ void geraRelatorioJSON(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes, const c
 }
 
 void escreveAlunosTerminal(Aluno *no) {
+// Atualizando escreveAlunosTerminal para incluir a lista de filmes assistidos void escreveAlunosTerminal(Aluno *no) {
     if (no == NULL) return;
 
     // Percorre a subárvore esquerda
@@ -453,11 +470,22 @@ void escreveAlunosTerminal(Aluno *no) {
     for (int i = 0; i < MAX_CATEGORIAS; i++) {
         printf("  %s: %d filmes\n", NOMES_CATEGORIAS[i], no->categorias[i]);
     }
+    printf("Filmes assistidos:\n");
+    NoFilmeLinear *atual = no->iniAssistidos;
+    if (atual != NULL) {
+        do {
+            printf("  - %s\n", atual->titulo);
+            atual = atual->prox;
+        } while (atual != no->iniAssistidos);
+    } else {
+        printf("  Nenhum filme assistido.\n");
+    }
     printf("-------------------------\n");
 
     // Percorre a subárvore direita
     escreveAlunosTerminal(no->dir);
 }
+
 
 void escreveFilmesTerminal(NoFilmeAvl *no) {
     if (no == NULL) return;
