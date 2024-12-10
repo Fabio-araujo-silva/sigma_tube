@@ -1,5 +1,7 @@
 #include "../include/avl_alunos.h"
 
+//#include "..\include\avl_alunos.h"
+
 int usp_counter = 0;
 
 // funcoes do tad
@@ -298,7 +300,7 @@ int removerAluno(Aluno **p, int usp, int *mudou_h) {
     }
 
     int ret;
-    if (strcmp(nome, (*raiz)->nome) > 0) {
+    if (n_usp_result - (*raiz)->n_usp > 0) {
         // Inserir à direita
         ret = aux_inserir_aluno(&(*raiz)->dir, nome, cresceu, n_usp_result);
         if (ret < 0) // Se retornou negativo, houve erro
@@ -539,3 +541,74 @@ int adicionarFilmeAssistido(AvlAluno *arvore, int n_usp, char *nome_filme, int c
     return 0; // Sucesso
 }
 
+// Função para exibir informações da árvore de alunos
+void infosArvoreAluno(AvlAluno *arvore) {
+    if (arvore == NULL) {
+        printf("Erro: Árvore de alunos não inicializada.\n");
+        return;
+    }
+
+    printf("Informações da árvore de alunos:\n");
+    printf("Maior difereça de altura: %d\n", calcularMaiorDiferencaAltura(arvore));
+    printf("Maior grau: %d\n", maiorGrau(arvore->raiz));
+    printf("Quantidade de nós: %d\n", contarNos(arvore->raiz));
+}
+
+// Função auxiliar recursiva para calcular a maior diferença de fatores de balanceamento
+void calcularMaiorDiferencaAux(Aluno *no, int *maior_diferenca) {
+    if (no == NULL) return;
+
+    // Verifica o valor absoluto do fator de balanceamento do nó atual
+    int diferenca_atual = abs(no->fb);
+
+    // Atualiza a maior diferença encontrada
+    if (diferenca_atual > *maior_diferenca) {
+        *maior_diferenca = diferenca_atual;
+    }
+
+    // Recorre para os filhos esquerdo e direito
+    calcularMaiorDiferencaAux(no->esq, maior_diferenca);
+    calcularMaiorDiferencaAux(no->dir, maior_diferenca);
+}
+
+// Função principal para calcular a maior diferença de fatores de balanceamento
+int calcularMaiorDiferencaAltura(AvlAluno *arvore) {
+    if (arvore == NULL || arvore->raiz == NULL) {
+        return 0; // Árvore vazia, diferença de altura é 0
+    }
+
+    int maior_diferenca = 0;
+    calcularMaiorDiferencaAux(arvore->raiz, &maior_diferenca);
+    return maior_diferenca;
+}
+
+// Função auxiliar para calcular o maior grau na árvore AVL
+int maiorGrau(Aluno *raiz) {
+    if (raiz == NULL) {
+        return 0; // Se a árvore está vazia, o maior grau é 0
+    }
+
+    // Calcula o grau do nó atual
+    int grau_atual = 0;
+    if (raiz->esq != NULL) grau_atual++;
+    if (raiz->dir != NULL) grau_atual++;
+
+    // Recursivamente, verifica o maior grau das subárvores
+    int grau_esq = maiorGrau(raiz->esq);
+    int grau_dir = maiorGrau(raiz->dir);
+
+    // Retorna o maior grau encontrado
+    return (grau_atual > grau_esq ? (grau_atual > grau_dir ? grau_atual : grau_dir) : (grau_esq > grau_dir ? grau_esq : grau_dir));
+}
+
+// Função para contar a quantidade de nós na árvore AVL
+int contarNos(Aluno *raiz) {
+    if (raiz == NULL) {
+        return 0; // Se a árvore está vazia, não há nós
+    }
+
+    // Conta o nó atual e os nós das subárvores
+    int esquerda = contarNos(raiz->esq);
+    int direita = contarNos(raiz->dir);
+    return 1 + esquerda + direita;
+}
