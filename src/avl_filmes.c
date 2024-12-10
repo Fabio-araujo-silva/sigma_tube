@@ -129,7 +129,6 @@ int aux_inserir_filme(NoFilmeAvl **raiz, char *titulo, int categoria, int *cresc
         (*raiz)->fb = 0;
         *cresceu = 1;
     }
-
     else if (strcmp(titulo, (*raiz)->titulo) < 0)
     {
         if (aux_inserir_filme(&((*raiz)->esq), titulo, categoria, cresceu))
@@ -147,8 +146,12 @@ int aux_inserir_filme(NoFilmeAvl **raiz, char *titulo, int categoria, int *cresc
                     break;
                 case -1:
                     *cresceu = 0;
-                    DE_f(raiz);
-                *cresceu = 0;
+                    // Aqui ajustamos para verificar o fator do filho esquerdo
+                    if ((*raiz)->esq->fb == -1)
+                        EE_f(raiz); // Caso E-E (inserção à esquerda do filho esquerdo) - Rotação Simples à Direita
+                    else
+                        ED_f(raiz); // Caso E-D (inserção à direita do filho esquerdo) - Rotação Dupla (Esquerda-Direita)
+                    break;
                 }
             }
         }
@@ -170,7 +173,12 @@ int aux_inserir_filme(NoFilmeAvl **raiz, char *titulo, int categoria, int *cresc
                     break;
                 case 1:
                     *cresceu = 0;
-                    EE_f(raiz);
+                    // Aqui ajustamos para verificar o fator do filho direito
+                    if ((*raiz)->dir->fb == 1)
+                        DD_f(raiz); // Caso D-D (inserção à direita do filho direito) - Rotação Simples à Esquerda
+                    else
+                        DE_f(raiz); // Caso D-E (inserção à esquerda do filho direito) - Rotação Dupla (Direita-Esquerda)
+                    break;
                 }
             }
         }
@@ -179,7 +187,10 @@ int aux_inserir_filme(NoFilmeAvl **raiz, char *titulo, int categoria, int *cresc
     {
         return 0;
     }
+
+    return 1;
 }
+
 
 // Cadastra um filme no sistema
 int cadastraFilme(AvlFilme *arvore, char *titulo, int categoria)

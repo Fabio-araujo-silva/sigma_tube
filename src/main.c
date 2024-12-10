@@ -76,6 +76,7 @@ int Adm(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
                     int balanceamento;
                     scanf("%d", &n_usp);
                     removerAluno(&arvore_alunos->raiz, n_usp, &balanceamento) == 1 ? printf("Aluno dono do numero USP %d, removido com sucesso\n", n_usp) : printf("Erro na remocao do usuario n_usp %d\n", n_usp);
+                    break;
 
                 // Listar filmes
                 case 4:
@@ -136,11 +137,11 @@ int Usuario(int n_usp, AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
 
                 if (assistido)
                 {
-                    printf("o filme foi assistido!\n");
+                    printf("o filme esta no catalogo!\n");
                 }
                 else
                 {
-                    printf("O filme não foi assistido!\n");
+                    printf("O filme não esta no catalogo!\n");
                 }
                 break;
 
@@ -188,7 +189,7 @@ int Usuario(int n_usp, AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
                             if (adicionarVisualizacao(arvore_filmes, nomefilme))
                            {
                                 printf("Visualização adicionada com sucesso!\n");
-                                adicionarFilmeAssistido(arvore_alunos, n_uspb, nomefilme, categoria);
+                                adicionarFilmeAssistido(arvore_alunos, n_usp, nomefilme, categoria);
                            }
                            else
                            {
