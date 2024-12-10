@@ -81,12 +81,7 @@ int Adm(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
                 case 4:
                     listaFilme(arvore_filmes->raiz);
                     break;
-                /*
-                case 10:
-                    geraRelatorio();
-                    break;
-                */
-                
+        
                 case 5:
                     geraRelatorioTerminal(arvore_alunos, arvore_filmes);
                     geraRelatorioJSON(arvore_alunos, arvore_filmes, "relatorio.json");

@@ -39,7 +39,7 @@ Aluno *recomendaConvergente(Aluno *p, int n_usp);
 void EncontrarMaisDistante(Aluno *p, Aluno *X, Aluno **mais_distante, float *melhor_metrica);
 Aluno *recomendaDivergente(Aluno *p, int n_usp);
 int adicionarFilmeAssistido(AvlAluno *arvore, int n_usp, char *nome_filme, int categoria);
-
+Aluno *buscaAluno(Aluno *p, int n_usp);
 void infosArvoreAluno(AvlAluno *arvore);
 int calcularMaiorDiferencaAltura(AvlAluno *arvore);
 int maiorGrau(Aluno *raiz);

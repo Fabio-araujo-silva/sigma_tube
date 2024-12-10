@@ -1,7 +1,5 @@
 #include "../include/avl_alunos.h"
 
-//#include "..\include\avl_alunos.h"
-
 int usp_counter = 0;
 
 // funcoes do tad
@@ -541,7 +539,6 @@ int adicionarFilmeAssistido(AvlAluno *arvore, int n_usp, char *nome_filme, int c
     return 0; // Sucesso
 }
 
-// Função para exibir informações da árvore de alunos
 void infosArvoreAluno(AvlAluno *arvore) {
     if (arvore == NULL) {
         printf("Erro: Árvore de alunos não inicializada.\n");
