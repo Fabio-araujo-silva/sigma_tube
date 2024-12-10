@@ -1,8 +1,8 @@
 {
   "alunos": [
     {
-      "n_usp": 4,
-      "nome": "ana",
+      "n_usp": 1,
+      "nome": "bruno",
       "filmes_por_categoria": {
         "Romance": 0,
         "Comédia": 0,
@@ -13,11 +13,23 @@
       }
     },
     {
+      "n_usp": 2,
+      "nome": "ana",
+      "filmes_por_categoria": {
+        "Romance": 1,
+        "Comédia": 0,
+        "Drama": 0,
+        "Terror": 0,
+        "Ficção": 0,
+        "Ação": 0
+      }
+    },
+    {
       "n_usp": 3,
-      "nome": "c",
+      "nome": "carlos",
       "filmes_por_categoria": {
         "Romance": 0,
-        "Comédia": 0,
+        "Comédia": 1,
         "Drama": 0,
         "Terror": 0,
         "Ficção": 0,
@@ -26,6 +38,15 @@
     }
   ],
   "filmes": [
-
+    {
+      "titulo": "madagascar 8",
+      "categoria": "Romance",
+      "espectadores": 1
+    },
+    {
+      "titulo": "shrek",
+      "categoria": "Comédia",
+      "espectadores": 1
+    }
   ]
 }
