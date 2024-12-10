@@ -276,7 +276,6 @@ int removerAluno(Aluno **p, int usp, int *mudou_h) {
         novo->n_usp = usp_counter; // autoincrementa o n_usp
         strcpy(novo->nome, nome);
         novo->iniAssistidos = NULL;
-        novo->iniFav = NULL;
 
         // Inicializa preferencia com zero
         for (int i = 0; i < MAX_CATEGORIAS; i++) {
