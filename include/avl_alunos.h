@@ -15,7 +15,6 @@ typedef struct aluno
     int n_usp;
     char nome[MAX_NOME];
     NoFilmeLinear *iniAssistidos;
-    NoFilmeLinear *iniFav;
     int categorias[MAX_CATEGORIAS];
     int fb;
     struct aluno *esq, *dir;
