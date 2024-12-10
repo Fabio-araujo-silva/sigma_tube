@@ -1,6 +1,6 @@
-//#include "../include/avl_filmes.h"
+#include "../include/avl_filmes.h"
 
-#include "..\include\avl_filmes.h"
+//#include "..\include\avl_filmes.h"
 
 
 void escreveFilmesJSON(FILE *file, NoFilmeAvl *no, int *primeiro);

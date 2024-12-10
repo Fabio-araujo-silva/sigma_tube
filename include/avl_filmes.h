@@ -1,5 +1,5 @@
 #include "sigma_tube.h"
-#include "..\include\avl_alunos.h"
+#include "../include/avl_alunos.h"
 
 // No para registro "global" de filmes em árvore de busca binária
 typedef struct noFilmeAvl
