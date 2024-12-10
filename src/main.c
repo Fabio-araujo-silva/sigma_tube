@@ -251,7 +251,7 @@ int MainMenu(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
                 printf("Ótimo! %s, voce foi cadastrado com numero usp: '%d'\n\n",nome, n_uspb);
                     printf("Deseja adicionar os filmes ja assistidos por você?\n");
                 do {
-                    printf("1 - Adicionar um filme\n2 - Nao\n\n");
+                    printf("1 - Adicionar um filme\n2 - Sair\n\n");
                     scanf("%d", &flag);
                     if (flag == 1)
                     {
