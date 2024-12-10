@@ -1,23 +1,31 @@
 {
   "alunos": [
     {
-      "n_usp": 1,
+      "n_usp": 4,
       "nome": "ana",
       "filmes_por_categoria": {
         "Romance": 0,
         "Comédia": 0,
         "Drama": 0,
-        "Terror": 1,
+        "Terror": 0,
+        "Ficção": 0,
+        "Ação": 0
+      }
+    },
+    {
+      "n_usp": 3,
+      "nome": "c",
+      "filmes_por_categoria": {
+        "Romance": 0,
+        "Comédia": 0,
+        "Drama": 0,
+        "Terror": 0,
         "Ficção": 0,
         "Ação": 0
       }
     }
   ],
   "filmes": [
-    {
-      "titulo": "shrek",
-      "categoria": "Terror",
-      "espectadores": 1
-    }
+
   ]
 }
