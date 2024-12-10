@@ -450,16 +450,15 @@ Aluno *recomendaConvergente(Aluno *p, int n_usp) {
     return mais_proximo;
 }
 
-
 void EncontrarMaisDistante(Aluno *p, Aluno *X, Aluno **mais_distante, float *melhor_metrica) {
-    if (p == NULL) {
+    if (p == NULL || X == NULL) {
         return;
     }
 
     // Calcular a métrica para o aluno atual, se for diferente de X
     if (p != X) { // Comparação por endereço para evitar o próprio aluno
         float metrica_atual = Metrica(X, p);
-        if (p != X && (metrica_atual > 0 && metrica_atual < *melhor_metrica)) {
+        if (*mais_distante == NULL || metrica_atual < *melhor_metrica) {
             *melhor_metrica = metrica_atual;
             *mais_distante = p;
         }
