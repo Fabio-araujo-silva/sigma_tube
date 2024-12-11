@@ -432,8 +432,8 @@ Aluno *recomendaConvergente(Aluno *p, int n_usp) {
     }
 
     Aluno *X = buscaAluno(p, n_usp);
-    if (X == NULL) {
-        printf("Erro: Aluno com N_USP %d não encontrado.\n", n_usp);
+    if (X == NULL || (p->esq == NULL && p->dir == NULL)) {
+        printf("Erro: Nenhum aluno para comparar ou aluno com N_USP %d não encontrado.\n", n_usp);
         return NULL;
     }
 
@@ -476,8 +476,8 @@ Aluno *recomendaDivergente(Aluno *p, int n_usp) {
     }
 
     Aluno *X = buscaAluno(p, n_usp);
-    if (X == NULL) {
-        printf("Erro: Aluno com N_USP %d não encontrado.\n", n_usp);
+    if (X == NULL || (p->esq == NULL && p->dir == NULL)) {
+        printf("Erro: Nenhum aluno para comparar ou aluno com N_USP %d não encontrado.\n", n_usp);
         return NULL;
     }
 
