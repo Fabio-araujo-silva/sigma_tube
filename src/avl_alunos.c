@@ -607,3 +607,26 @@ int contarNos(Aluno *raiz) {
     int direita = contarNos(raiz->dir);
     return 1 + esquerda + direita;
 }
+
+void liberarListaCircular(NoFilmeLinear *inicio) {
+    if (inicio == NULL) return;
+
+    NoFilmeLinear *atual = inicio->prox;
+    while (atual != inicio) {
+        NoFilmeLinear *temp = atual;
+        atual = atual->prox;
+        free(temp);
+    }
+    free(inicio); // Libera o nó inicial
+}
+
+void liberarArvoreAlunos(Aluno *raiz) {
+    if (raiz == NULL) return;
+
+    liberarArvoreAlunos(raiz->esq);
+    liberarArvoreAlunos(raiz->dir);
+
+    liberarListaCircular(raiz->iniAssistidos); // Libera a lista circular de filmes
+    free(raiz); // Libera o nó atual
+}
+

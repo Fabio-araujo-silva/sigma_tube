@@ -43,6 +43,8 @@ void infosArvoreAluno(AvlAluno *arvore);
 int calcularMaiorDiferencaAltura(AvlAluno *arvore);
 int maiorGrau(Aluno *raiz);
 int contarNos(Aluno *raiz);
+void liberarListaCircular(NoFilmeLinear *inicio);
+void liberarArvoreAlunos(Aluno *raiz);
 /*
 int infosArvore();              // Exibe informações técnicas da ABB de alunos
 int retirarAluno();             // Apaga cadastro de um aluno

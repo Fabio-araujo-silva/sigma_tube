@@ -1,9 +1,0 @@
-{
-    "files.associations": {
-        "*.embeddedhtml": "html",
-        "sigma_tube.h": "c",
-        "string.h": "c",
-        "avl_alunos.h": "c",
-        "avl_filmes.h": "c"
-    }
-}

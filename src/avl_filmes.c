@@ -517,3 +517,14 @@ int obterCategoriaFilme(NoFilmeAvl *raiz, char *titulo) {
         return obterCategoriaFilme(raiz->dir, titulo); // Busca na subárvore direita
     }
 }
+
+void liberarArvoreFilmes(NoFilmeAvl *raiz) {
+    if (raiz == NULL) return;
+
+    liberarArvoreFilmes(raiz->esq);
+    liberarArvoreFilmes(raiz->dir);
+
+    free(raiz->espectadores); // Libera o ponteiro para espectadores
+    free(raiz); // Libera o nó atual
+}
+

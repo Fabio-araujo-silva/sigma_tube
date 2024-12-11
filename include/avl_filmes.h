@@ -28,6 +28,7 @@ void geraRelatorioJSON(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes, const c
 void geraRelatorioTerminal(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes);
 
 int obterCategoriaFilme(NoFilmeAvl *raiz, char *titulo);
+void liberarArvoreFilmes(NoFilmeAvl *raiz);
 // Exibe os 10 filmes mais populares do momento
 /*
 int adicionaFilmeFavorito();

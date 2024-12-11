@@ -5,7 +5,7 @@
 #include "..\include\avl_alunos.h"
 #include "..\include\avl_filmes.h"
 #include "..\include\sigma_tube.h"*/
-
+void liberarTudo(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes);
 int Adm(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes);
 int Usuario(int n_usp, AvlAluno *arvore_alunos, AvlFilme *arvore_filmes);
 int MainMenu(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes);
@@ -22,7 +22,6 @@ int main()
     printf("Bem-vindo ao SigmaTube!\n");
 
     MainMenu(arvore_alunos, arvore_filmes);
-
     return 0;
 }
 
@@ -297,6 +296,8 @@ int MainMenu(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
                 Adm(arvore_alunos, arvore_filmes);
 
             case 4:
+                liberarTudo(arvore_alunos, arvore_filmes);
+                printf("MEMORIA LIBERADA POR INTEIRO!!\n");
                 exit(0);
 
             default:
@@ -305,4 +306,15 @@ int MainMenu(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes)
         }
         
     } while (modo != 4);
+}
+
+void liberarTudo(AvlAluno *arvore_alunos, AvlFilme *arvore_filmes) {
+    if (arvore_alunos != NULL) {
+        liberarArvoreAlunos(arvore_alunos->raiz);
+        free(arvore_alunos); // Libera a estrutura da árvore
+    }
+    if (arvore_filmes != NULL) {
+        liberarArvoreFilmes(arvore_filmes->raiz);
+        free(arvore_filmes); // Libera a estrutura da árvore
+    }
 }
